@@ -1,0 +1,11 @@
+<p>Portal</p>
+
+<div tal:condition="exists:isLogin">
+    <ul>
+        <li><a href="/portal/sadd">訪問看護ステーションを追加</a></li>
+        <li><a href="/portal/iadd">インタビューを追加</a></li>
+        <tal:block tal:condition="php: userInfo['user_mode'] != 3">
+        <li><a href="/portal/uadd">一般ユーザー会員を追加</a></li>
+        </tal:block>
+    </ul>
+</div>

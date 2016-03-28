@@ -1,0 +1,101 @@
+h1. CakePHP TALTAL - PHPTAL View plugin
+
+PHP 5.3+, CakePHP 2.1+
+
+This plugin provides PHPTAL View Class
+
+Copyright 2013, php-tips.com (http://php-tips.com)
+
+!https://travis-ci.org/nojimage/CakePHP-TALTAL.png?branch=master!:https://travis-ci.org/nojimage/CakePHP-TALTAL
+
+h2. Plugin Installation
+
+<pre>
+git submodule add -f https://github.com/nojimage/CakePHP-TALTAL.git plugins/Taltal
+</pre>
+
+and get PHPTAL library.
+
+<pre>
+cd plugins/Taltal
+git submodule update --init
+</pre>
+
+h2. Usage
+
+in app/Config/bootstrap.php
+
+<pre><code>
+CakePlugin::load('Taltal');
+</code></pre>
+
+or
+
+<pre><code>
+CakePlugin::loadAll();
+</code></pre>
+
+in AppController
+
+<pre><code>
+class AppController extends Controller {
+    // ...(snip)
+    public $viewClass = 'Taltal.Phptal';
+    // ...(snip)
+}
+</code></pre>
+
+set vars in controller action.
+
+<pre><code>
+class PostsController extends AppController {
+    function index() {
+        $people = array(
+            array('name' => 'foo', 'phone' => '01-344-121-021'),
+            array('name' => 'bar', 'phone' => '05-999-165-541'),
+            array('name' => 'baz', 'phone' => '01-389-321-024'),
+            array('name' => 'quz', 'phone' => '05-321-378-654'),
+        );
+        $this->set(compact('people'));
+    }
+}
+</code></pre>
+
+and create view file, extension is .html or .xhtml or .zpt
+
+eg. app/View/Posts/index.html
+
+<pre><code>
+<table>
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Phone</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr tal:repeat="person people">
+            <td tal:content="person/name">person's name</td>
+            <td tal:content="person/phone">person's phone</td>
+        </tr>
+        <tr tal:replace="">
+            <td>sample name</td>
+            <td>sample phone</td>
+        </tr>
+        <tr tal:replace="">
+            <td>sample name</td>
+            <td>sample phone</td>
+        </tr>
+    </tbody>
+</table>
+</code></pre>
+
+h2. LICENSE
+
+http://www.gnu.org/licenses/lgpl.html GNU Lesser General Public License
+
+h2. Thanks
+
+Support for CakePHP2.0. Thanks!: Juracy Filho <a href="https://github.com/juracy">https://github.com/juracy</a>
+<a href="http://phptal.org/">PHPTAL :: Template Attribute Language for PHP 5</a>
+<a href="http://bakery.cakephp.org/articles/dkvasnicka/2007/04/24/using-phptal-for-templates-phptalview-class">Using PHPTAL for templates: PhptalView class | The Bakery, Everything CakePHP</a>

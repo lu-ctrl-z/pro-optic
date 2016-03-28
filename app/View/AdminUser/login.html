@@ -1,0 +1,25 @@
+<div class="wrapper">
+    <div style="padding-top:20px"></div>
+    <div id="login">
+        <form action="/login/auth" method="post" name="form_login">
+           <div>
+               <p>ールアドレス </p>
+               <input type="text" name="user_mail" tal:attributes ="value php: (isset(user_login['user_mail'])) ? user_login['user_mail'] : ''" maxlength="50" style="width: 250px;" />
+           </div>
+           <div style="margin-top: 10px;">
+               <p>パスワード</p>
+               <input  type="password" name="password" tal:attributes ="value php: (isset(user_login['password'])) ? user_login['password'] : ''" maxlength="12" style="width: 250px;" />
+           </div>
+           <div style="margin-top: 10px;">
+                <input value="ログイン" type="submit"></input>
+            </div>
+            <p class="checkbox">
+                <label for="auto_login">
+                    <input type="checkbox" name="auto_login" value="1" id="auto_login" checked="checked" /> 自動的にログインする
+                </label>
+            </p>
+            <span cake:helper="session:flash('error_login')" ></span>
+            <input type="hidden" tal:attributes="value request/params/_Token/key" name="data[Csrf][key]" />
+        </form>
+    </div>
+</div>

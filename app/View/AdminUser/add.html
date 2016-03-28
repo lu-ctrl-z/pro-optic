@@ -1,0 +1,110 @@
+<h3>一般ユーザー会員を追加</h3>
+<form action="/portal/uadd/preview" method="post" name="form_uadd">
+    <table><tbody>
+        <tr>
+           <th>メールアドレス <span class="req">*</span></th>
+           <td>
+               <input type="text" name="user_mail" 
+                   tal:attributes="value php: (isset(aryData) && !empty(aryData['user_mail'])) ? aryData['user_mail'] : '' " />
+               <span tal:condition="php: isset(aryError) && !empty(aryError['user_mail'])"
+                        tal:content="php: aryError['user_mail']">
+               </span>
+           </td>
+        </tr>
+        <tr>
+           <th>パスワード <span class="req">*</span></th>
+           <td>
+               <input type="password" name="password" autocomplete="off"
+                   tal:attributes="value php: (isset(aryData) && !empty(aryData['password'])) ? aryData['password'] : '' " />
+               <span tal:condition="php: isset(aryError) && !empty(aryError['password'])"
+                        tal:content="php: aryError['password']">
+               </span>
+           </td>
+        </tr>
+        <tr>
+           <th>パスワード(confirm) <span class="req">*</span></th>
+           <td>
+               <input type="password" name="password_confirm" autocomplete="off"
+                   tal:attributes="value php: (isset(aryData) && !empty(aryData['password_confirm'])) ? aryData['password_confirm'] : '' " />
+               <span tal:condition="php: isset(aryError) && !empty(aryError['password_confirm'])"
+                        tal:content="php: aryError['password_confirm']">
+               </span>
+           </td>
+        </tr>
+        <tr>
+           <th>姓 <span class="req">*</span></th>
+           <td>
+               <input type="text" name="name_sei" 
+                   tal:attributes="value php: (isset(aryData) && !empty(aryData['name_sei'])) ? aryData['name_sei'] : '' " />
+               <span tal:condition="php: isset(aryError) && !empty(aryError['name_sei'])"
+                        tal:content="php: aryError['name_sei']">
+               </span>
+           </td>
+        </tr>
+        <tr>
+           <th>名 <span class="req">*</span></th>
+           <td>
+               <input type="text" name="name_mei" 
+                   tal:attributes="value php: (isset(aryData) && !empty(aryData['name_mei'])) ? aryData['name_mei'] : '' " />
+               <span tal:condition="php: isset(aryError) && !empty(aryError['name_mei'])"
+                        tal:content="php: aryError['name_mei']">
+               </span>
+           </td>
+        </tr>
+        <tr>
+           <th>姓（カナ） <span class="req">*</span></th>
+           <td>
+               <input type="text" name="name_kana_sei" 
+                   tal:attributes="value php: (isset(aryData) && !empty(aryData['name_kana_sei'])) ? aryData['name_kana_sei'] : '' " />
+               <span tal:condition="php: isset(aryError) && !empty(aryError['name_kana_sei'])"
+                        tal:content="php: aryError['name_kana_sei']">
+               </span>
+           </td>
+        </tr>
+        <tr>
+           <th>名（カナ） <span class="req">*</span></th>
+           <td>
+               <input type="text" name="name_kana_mei" 
+                   tal:attributes="value php: (isset(aryData) && !empty(aryData['name_kana_mei'])) ? aryData['name_kana_mei'] : '' " />
+               <span tal:condition="php: isset(aryError) && !empty(aryError['name_kana_mei'])"
+                        tal:content="php: aryError['name_kana_mei']">
+               </span>
+           </td>
+        </tr>
+        <tr>
+           <th>所属部署</th>
+           <td>
+               <input type="text" name="department" 
+                   tal:attributes="value php: (isset(aryData) && !empty(aryData['department'])) ? aryData['department'] : '' " />
+               <span tal:condition="php: isset(aryError) && !empty(aryError['department'])"
+                        tal:content="php: aryError['department']">
+               </span>
+           </td>
+        </tr>
+        <tr>
+           <th>電話番号 <span class="req">*</span></th>
+           <td>
+               <input type="text" name="tel" 
+                   tal:attributes="value php: (isset(aryData) && !empty(aryData['tel'])) ? aryData['tel'] : '' " />
+               <span tal:condition="php: isset(aryError) && !empty(aryError['tel'])"
+                        tal:content="php: aryError['tel']">
+               </span>
+           </td>
+        </tr>
+        <tr>
+           <th>FAX番号</th>
+           <td>
+               <input type="text" name="fax" 
+                   tal:attributes="value php: (isset(aryData) && !empty(aryData['fax'])) ? aryData['fax'] : '' " />
+               <span tal:condition="php: isset(aryError) && !empty(aryError['fax'])"
+                        tal:content="php: aryError['fax']">
+               </span>
+           </td>
+        </tr>
+    </tbody></table>
+    <div class="status_btn">
+        <input type="hidden" tal:attributes="value request/params/_Token/key" name="data[Csrf][key]" />
+        <input type="hidden" tal:attributes="value request/params/_TokenDuplicate/key" name="data[Duplicate][key]" />
+        <input type="submit" value="確認" name="submit" />
+    </div>
+</form>

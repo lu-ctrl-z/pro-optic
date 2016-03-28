@@ -1,0 +1,8 @@
+<form action="/entry" method="post">
+<table>
+<th>Mail Address:</th>
+<td><input type="text" name="user_mail" /></td>
+<td><button type="submit" name="regist">register</button></td>
+</table>
+<input type="hidden" tal:attributes="value request/params/_Token/key" name="data[Csrf][key]" />
+</form>

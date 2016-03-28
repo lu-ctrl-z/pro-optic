@@ -1,0 +1,16 @@
+<span cake:helper="session:flash('entry')" ></span>
+<p class="form-error-message" tal:condition="php: isset(aryError) && !empty(aryError['user_mail'])"
+         tal:content="php: aryError['user_mail']">
+</p>
+<form action="/entry/preview" method="post">
+<table>
+<th>Mail Address: <span class="req">*</span></th>
+<td><input type="text" name="user_mail" 
+tal:attributes="value php: (isset(app) && !empty(app['user_mail'])) ? app['user_mail'] : '' " />
+<p class="form-error-message" tal:condition="php: isset(aryError) && !empty(aryError['user_mail'])"
+         tal:content="php: aryError['user_mail']">
+</p>
+</td>
+<td><button type="submit" name="regist">register</button></td>
+</table>
+</form>

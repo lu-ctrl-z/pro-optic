@@ -1,0 +1,40 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    RewriteRule ^column/001.html$ /column/001 [R=301,L]
+    RewriteRule ^column/002.html$ /column/002 [R=301,L]
+    RewriteRule ^column/001_sp.html$ /column/001 [R=301,L]
+    RewriteRule ^column/002_sp.html$ /column/002 [R=301,L]
+
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteRule ^ index.php [L]
+    php_value upload_max_filesize 100M
+    php_value post_max_size 100M
+
+#   AuthType Basic
+#   AuthName "Password Protected Area"
+#   AuthUserFile /var/www/hyn/public_html/.htpasswd-stg
+#   Require valid-user
+    Order deny,allow   
+    Deny from all   
+# SMS   
+    Allow from 127.0.0.1
+    Allow from 192.168.0.0/16
+    Allow from 192.168.30.72
+    Allow from 192.168.30.100
+    Allow from 192.168.30.101
+    Allow from 192.168.30.195
+    Allow from 192.168.30.196
+    Allow from 58.138.188.0/25
+    Allow from 118.151.156.104
+    Allow from 118.151.156.105
+    Allow from 202.232.234.144/28
+# Luvina(cm)
+    Allow from 118.70.128.12
+    Allow from 118.69.176.151
+</IfModule>
+
+<ifModule mod_headers.c>
+    Header set Access-Control-Allow-Origin: *
+</ifModule>

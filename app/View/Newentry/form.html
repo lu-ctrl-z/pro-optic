@@ -1,0 +1,95 @@
+<style>
+table, td, th {
+	border: 1px solid #333;
+	border-collapse: collapse;
+	padding: 5px 10px;
+	box-sizing: border-box;
+}
+
+.content {
+	position: relative;
+	width: 600px;
+	margin: 0 auto;
+}
+
+table {
+	width: 100%;
+}
+
+.req, .form-error-message {
+	color: red;
+}
+
+table input[type='text'] {
+	width: 100%;
+	box-sizing: border-box;
+}
+</style>
+<div class="content">
+	<p class="form-error-message"
+		tal:condition="php: isset(aryError) && !empty(aryError['error'])"
+		tal:content="php: aryError['error']"></p>
+	<form action="/aadd/" method="post">
+		<table>
+			<th>Mail Address: <span class="req">*</span></th>
+			<td><i class="user_mail"
+				tal:condition="php: !empty(app['user_mail'])"
+				tal:content="php: app['user_mail']"> </i></td>
+			<tr>
+				<th>Name Sei: <span class="req">*</span></th>
+                <td><input type="text" name="name_sei"  maxlength="128"
+                tal:attributes="value php: isset(app['params']['name_sei'])? app['params']['name_sei']:''" /></td>
+			</tr>
+			<tr>
+				<th>Name mei: <span class="req">*</span></th>
+                <td><input type="text" name="name_mei" maxlength="32"
+                tal:attributes="value php: isset(app['params']['name_mei'])? app['params']['name_mei']:''" /></td>
+			</tr>
+			<tr>
+				<th>Name kana sei: <span class="req">*</span></th>
+                <td><input type="text" name="name_kana_sei" maxlength="32"
+                tal:attributes="value php: isset(app['params']['name_kana_sei'])? app['params']['name_kana_sei']:''" /></td>
+			</tr>
+			<tr>
+				<th>Name kana mei: <span class="req">*</span></th>
+                <td><input type="text" name="name_kana_mei" maxlength="32"
+                tal:attributes="value php: isset(app['params']['name_kana_mei'])? app['params']['name_kana_mei']:''" /></td>
+			</tr>
+			<tr>
+				<th>department:</th>
+                <td><input type="text" name="department" maxlength="128"
+                tal:attributes="value php: isset(app['params']['department'])? app['params']['department']:''" /></td>
+			</tr>
+			<tr>
+				<th>tel: <span class="req">*</span></th>
+                <td><input type="text" name="tel" maxlength="16"
+                tal:attributes="value php: isset(app['params']['tel'])? app['params']['tel']:''" /></td>
+			</tr>
+			<tr>
+				<th>fax:</th>
+                <td><input type="text" name="fax" maxlength="16"
+                tal:attributes="value php: isset(app['params']['fax'])? app['params']['fax']:''" /></td>
+			</tr>
+			<tr>
+				<th>password:</th>
+                <td><input type="password" name="password" 
+                tal:attributes="value php: isset(app['params']['password'])? app['params']['password']:''" /></td>
+			</tr>
+			<tr>
+				<th>re-password:</th>
+                <td><input type="password" name="re_password" 
+                tal:attributes="value php: isset(app['params']['re_password'])? app['params']['re_password']:''" /></td>
+			</tr>
+			<tr>
+				<th>com_CD:</th>
+                <td><select name="com_CD">
+                
+                </select></td>
+			</tr>
+			<tr>
+				<th></th>
+				<td><button type="submit" name="regist">register</button></td>
+			</tr>
+		</table>
+	</form>
+</div>

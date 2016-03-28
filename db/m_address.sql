@@ -1,0 +1,21 @@
+CREATE TABLE m_address(
+id int(11) primary key NOT NULL auto_increment,
+code_sort varchar(16) default NULL,
+post_code varchar(8) default NULL,
+zip_code varchar(8) default NULL,
+kana_pref varchar(32) default NULL,
+kana_city varchar(32) default NULL,
+kana_area varchar(32) default NULL,
+kana_address varchar(32) default NULL,
+kanji_pref varchar(32) default NULL,
+kanji_city varchar(32) default NULL,
+kanji_area varchar(32) default NULL,
+kanji_address varchar(32) default NULL,
+flag_set tinyint(4) NOT NULL,
+entry_date datetime default NULL,
+entry_user varchar(24) default NULL,
+update_date datetime default NULL,
+update_user varchar(24) default NULL,
+delete_date datetime default NULL,
+delete_user varchar(24) default NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

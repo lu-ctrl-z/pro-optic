@@ -1,0 +1,730 @@
+<span tal:comment="#102 Start Luvina Modify" tal:replace=""></span>
+<script tal:attributes="src php:FULL_BASE_URL . '/js/load_map.js'" type="text/javascript"></script>
+<span tal:comment="#96 Start Luvina Modify" tal:replace=""></span>
+<script tal:attributes="src php:FULL_BASE_URL . '/js/detail.js?116'" type="text/javascript"></script>
+<span tal:comment="#96 End Luvina Modify" tal:replace=""></span>
+<span tal:comment="#106 Start Luvina Modify" tal:replace=""></span>
+<tal:block  tal:condition="php: isset(isPre)">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" />
+<script tal:attributes="src php:FULL_BASE_URL . '/js/jquery-ui.min.js'" type="text/javascript"></script>
+</tal:block>
+<span tal:comment="#106 End Luvina Modify" tal:replace=""></span>
+<tal:block tal:condition="php: !empty(map)">
+<span tal:comment="#100 Start Luvina Modify" tal:replace=""></span>
+<script type="text/javascript">
+    $("document").ready(function(){
+        loadCenterMap('store_map', '${map/latitude}', '${map/longitude}', '${map/zoom}', '${map/address}', true);
+        if (${showToppicpath}) {
+            showToppicpath('${map/latitude}', '${map/longitude}','${drugstore/DrugStore/drugstore_name}');
+        }
+        <span tal:comment="#115 Start Luvina Modify" tal:replace=""></span>
+        <span tal:comment="#115 End Luvina Modify" tal:replace=""></span>
+        <span tal:comment="#116 Start Luvina Modify" tal:replace=""></span>
+            $('.img_icon').crop();
+        <span tal:comment="#116 End Luvina Modify" tal:replace=""></span>
+    });
+</script>
+</tal:block>
+<span tal:comment="#106 Start Luvina Modify" tal:replace=""></span>
+<tal:block  tal:condition="php: isset(isPre)">
+<div style="display:none" id="dialog-confirm" title="訪問薬局ナビ">
+    <p>
+        承認します。よろしいですか？
+    </p>
+</div>
+<div style="display:none" id="dialog-confirm-cancel" title="訪問薬局ナビ">
+    <p>
+        保留します。よろしいですか？
+    </p>
+</div>
+</tal:block>
+<span tal:comment="#106 End Luvina Modify" tal:replace=""></span>
+<span tal:comment="#103 Start Luvina Modify" tal:replace=""></span>
+<form action="/list/" id="search_area" method="get">
+<div id="toppicpath"></div>
+</form>
+<span tal:comment="#103 End Luvina Modify" tal:replace=""></span>
+<span tal:comment="#100 End Luvina Modify" tal:replace=""></span>
+<span tal:comment="#110 Star Luvina Modify" tal:replace=""></span>
+<tal:block tal:condition="php: !empty(drugstore)">
+        <div id="header_scroll" class="scroll_hidden l-yk">
+            <div class="show_scroll">
+                <div class="show_scroll_name" tal:condition="php: !empty(drugstore['DrugStore']['drugstore_name'])"
+                      tal:content="structure php: nl2br(drugstore['DrugStore']['drugstore_name'])">
+                </div>
+                <div class="show_scroll_tel"  tal:condition="php: !empty(drugstore['DrugStore']['drugstore_tel'])"
+                      tal:content="drugstore/DrugStore/drugstore_tel">
+                </div>
+                <div style="clear:both;"> </div>
+            </div>
+        </div>
+</tal:block>
+<span tal:comment="#110 End Luvina Modify" tal:replace=""></span>
+<div class="wrapper">
+    <tal:block tal:condition="php: !empty(drugstore)">
+        <!-- ▼在宅薬局詳細ページ▼ -->
+        <span tal:comment="#96 Start Luvina Modify" tal:replace=""></span>
+        <h1 class="store_name scroll_margin">
+        <span tal:comment="#96 End Luvina Modify" tal:replace=""></span>
+    	<ruby>
+        <span tal:condition="php: !empty(drugstore['DrugStore']['drugstore_name'])"
+              tal:replace="structure php: nl2br(drugstore['DrugStore']['drugstore_name'])">
+        </span>
+        <rt>
+        <span tal:condition="php: !empty(drugstore['DrugStore']['drugstore_name_yomi'])"
+              tal:replace="structure php: nl2br(drugstore['DrugStore']['drugstore_name_yomi'] )">
+        </span>
+      </rt>
+      </ruby>
+            <span class="new" tal:condition="php: strtotime(drugstore['DrugStore']['expiration_date']) > strtotime(date('Y-m-d'))">NEW</span>
+        </h1>
+        <!-- socialbutton -->
+        <span tal:comment="#106 Start Luvina Modify" tal:replace=""></span>
+        <tal:block  tal:condition="php: !isset(isPre)">
+        <div id="socialbutton" class="detail">
+            <div>
+                <div id="socialbutton_1">
+                    <div>
+                        <a href="https://twitter.com/share" class="twitter-share-button" data-count="none">Tweet</a>
+                        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+                    </div>
+                    <div>
+                        <div id="fb-root"></div>
+                            <script>(function(d, s, id) {
+                          var js, fjs = d.getElementsByTagName(s)[0];
+                          if (d.getElementById(id)) return;
+                          js = d.createElement(s); js.id = id;
+                          js.src = "//connect.facebook.net/ja_JP/sdk.js#xfbml=1&version=v2.3&appId=595437823892352";
+                          fjs.parentNode.insertBefore(js, fjs);
+                          }(document, 'script', 'facebook-jssdk'));</script>
+                        <div class="fb-like" data-layout="button" data-action="like" data-show-faces="false" data-share="true"></div>
+                    </div>
+                    <div>
+                        <span>
+                            <script type="text/javascript" src="//media.line.me/js/line-button.js?v=20140411" ></script>
+                            <script type="text/javascript">
+                            new media_line_me.LineButton({"pc":false,"lang":"ja","type":"a"});
+                            </script>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div id="socialbutton_2">
+                    <div>
+                        <a href="http://b.hatena.ne.jp/entry/" class="hatena-bookmark-button" data-hatena-bookmark-layout="standard-noballoon" data-hatena-bookmark-lang="ja" title="このエントリーをはてなブックマークに追加"><img src="https://b.st-hatena.com/images/entry-button/button-only@2x.png" alt="このエントリーをはてなブックマークに追加" width="20" height="20" style="border: none;" /></a><script type="text/javascript" src="https://b.st-hatena.com/js/bookmark_button.js" charset="utf-8" async="async"></script>
+                    </div>
+                    <div class="gp1b">
+                        <!-- +1 ボタン を表示したい位置に次のタグを貼り付けてください。 -->
+                        <div class="g-plusone" data-size="medium" data-width="30" data-annotation="none"></div>
+                        <!-- 最後の +1 ボタン タグの後に次のタグを貼り付けてください。 -->
+                        <script type="text/javascript">
+                          window.___gcfg = {lang: 'ja'};
+                          (function() {
+                            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+                            po.src = 'https://apis.google.com/js/platform.js';
+                            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+                          })();
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </tal:block>
+        <span tal:comment="#106 End Luvina Modify" tal:replace=""></span>
+        <!-- /socialbutton -->
+    <div class="store_info">
+        <h2 class="store_caption" 
+            tal:condition="php: !empty(drugstore['DrugStore']['title'])"
+            tal:content="structure php: nl2br(drugstore['DrugStore']['title'])">
+        </h2>
+        <p class="store_description"  
+            tal:condition="php: !empty(drugstore['DrugStore']['drugstore_expl'])"
+            tal:content="structure php: nl2br(drugstore['DrugStore']['drugstore_expl'])">
+        </p>
+        <table cellspacing="0" cellpadding="0" border="0" class="service" id="ing_content">
+            <tr>
+                <th>実施<br />サービス</th>
+                <td>
+                     <tal:block tal:condition="php: drugstore['DrugStore']['visit_guidance'] !== ''">
+                        <a href="#zaitaku" class="clickToolTip">
+                        <tal:block tal:define="global visit_guidance_val php: drugstore['DrugStore']['visit_guidance']">
+                            <img tal:condition="php: !empty(aryVisitGuidance[visit_guidance_val]['icon'])" tal:attributes="src php: aryVisitGuidance[visit_guidance_val]['icon'];
+                                                 alt php: aryVisitGuidance[visit_guidance_val]['name'];
+                                                 title php: aryVisitGuidance[visit_guidance_val]['name']" />
+                        </tal:block>
+                        </a>
+                        <p id="zaitaku" class="toolTip invisible">
+                                在宅の受け入れがどれほど可能かを確認できます
+                        </p>
+                    </tal:block>
+                    <tal:block tal:condition="php: drugstore['DrugStore']['pal_care'] !== '' ">
+                        <a href="#kanwacare" class="clickToolTip">
+                        <tal:block tal:define="global pal_care_val php: drugstore['DrugStore']['pal_care']">
+                            <img tal:condition="php: !empty(aryPalCare[pal_care_val]['icon'])" tal:attributes="src php: aryPalCare[pal_care_val]['icon'];
+                                                 alt php: aryPalCare[pal_care_val]['name'];
+                                                 title php: aryPalCare[pal_care_val]['name']" />
+                        </tal:block>
+                        </a>
+                        <p id="kanwacare" class="toolTip invisible">
+                                緩和ケアの受け入れ体制を確認できます
+                        </p>
+                    </tal:block>
+                    <tal:block tal:condition="php: drugstore['DrugStore']['dementia_spt'] !== '' ">
+                        <a href="#nintisyo" class="clickToolTip">
+                        <tal:block tal:define="global dementia_spt_val php: drugstore['DrugStore']['dementia_spt']">
+                            <img tal:condition="php: !empty(aryDementiaSpt[dementia_spt_val]['icon'])"  tal:attributes="src php: aryDementiaSpt[dementia_spt_val]['icon'];
+                                                 alt php: aryDementiaSpt[dementia_spt_val]['name'];
+                                                 title php: aryDementiaSpt[dementia_spt_val]['name']" />
+                        </tal:block>
+                        </a>
+                        <p id="nintisyo" class="toolTip invisible">
+                                認知症患者の受け入れ体制を確認できます
+                        </p>
+                    </tal:block>
+                    <tal:block tal:condition="php: drugstore['DrugStore']['child_spt'] !== '' ">
+                        <a href="#shouni" class="clickToolTip">
+                        <tal:block tal:define="global child_spt_val php: drugstore['DrugStore']['child_spt']">
+                            <img tal:condition="php: !empty(aryChildSpt[child_spt_val]['icon'])" tal:attributes="src php: aryChildSpt[child_spt_val]['icon'];
+                                                 alt php: aryChildSpt[child_spt_val]['name'];
+                                                 title php: aryChildSpt[child_spt_val]['name']" />
+                        </tal:block>
+                        </a>
+                        <p id="shouni" class="toolTip invisible">
+                                小児患者の受け入れ体制を確認できます
+                        </p>
+                    </tal:block>
+                    <tal:block tal:condition="php: drugstore['DrugStore']['24_hour_aday'] !== '' ">
+                        <a href="#fulltime" class="clickToolTip">
+                        <tal:block tal:define="global hour_aday_val php: drugstore['DrugStore']['24_hour_aday']">
+                            <img tal:condition="php: !empty(ary24HourAday[hour_aday_val]['icon'])" tal:attributes="src php: ary24HourAday[hour_aday_val]['icon'];
+                                                 alt php: ary24HourAday[hour_aday_val]['name'];
+                                                 title php: ary24HourAday[hour_aday_val]['name']" />
+                        </tal:block>
+                        </a>
+                        <p id="fulltime" class="toolTip invisible">
+                               24時間対応の体制を確認できます
+                        </p>
+                    </tal:block>
+                    <tal:block tal:condition="php: drugstore['DrugStore']['aseptic_handle'] !== '' ">
+                        
+                        <tal:block tal:define="global aseptic_handle_val php: drugstore['DrugStore']['aseptic_handle']">
+                            <a href="#mukin" class="clickToolTip">
+                                <img tal:condition="php: substr(aseptic_handle_val,0,1) == 1" tal:attributes="src php: aryaAepticHandle[0]['icon'];
+                                                 alt php: aryaAepticHandle[0]['name'];
+                                                 title php: aryaAepticHandle[0]['name']" />
+                             </a>
+                             <a href="#mukin" class="clickToolTip">
+                                <img tal:condition="php: substr(aseptic_handle_val,1,1) == 1" tal:attributes="src php: aryaAepticHandle[1]['icon'];
+                                                 alt php: aryaAepticHandle[1]['name'];
+                                                 title php: aryaAepticHandle[1]['name']" />
+                             </a>
+                             <a href="#mukin" class="clickToolTip">
+                                <img tal:condition="php: substr(aseptic_handle_val,2,1) == 1" tal:attributes="src php: aryaAepticHandle[2]['icon'];
+                                                 alt php: aryaAepticHandle[2]['name'];
+                                                 title php: aryaAepticHandle[2]['name']" />
+                             </a>
+                             <a href="#mukin" class="clickToolTip">
+                                <img tal:condition="php: substr(aseptic_handle_val,3,1) == 1" tal:attributes="src php: aryaAepticHandle[3]['icon'];
+                                                 alt php: aryaAepticHandle[3]['name'];
+                                                 title php: aryaAepticHandle[3]['name']" />
+                             </a>
+                             <a href="#mukin" class="clickToolTip">
+                                <img tal:condition="php: substr(aseptic_handle_val,4,1) == 1" tal:attributes="src php: aryaAepticHandle[4]['icon'];
+                                                 alt php: aryaAepticHandle[4]['name'];
+                                                 title php: aryaAepticHandle[4]['name']" />
+                              </a>
+                        </tal:block>
+                        <p id="mukin" class="toolTip invisible">
+                                無菌調剤の対応状況を確認できます
+                        </p>
+                    </tal:block>
+                    <tal:block tal:condition="php: drugstore['DrugStore']['drug_storage'] !== '' ">
+                        <tal:block tal:define="global drug_storage_val php: drugstore['DrugStore']['drug_storage']">
+                            <a href="#mayaku" class="clickToolTip">
+                                <img tal:condition="php: substr(drug_storage_val,0,1) == 1" tal:attributes="src php: aryDrugStorage[0]['icon'];
+                                                 alt php: aryDrugStorage[0]['name'];
+                                                 title php: aryDrugStorage[0]['name']" />
+                                </a>
+                            <a href="#mayaku" class="clickToolTip">
+                                <img tal:condition="php: substr(drug_storage_val,1,1) == 1" tal:attributes="src php: aryDrugStorage[1]['icon'];
+                                                 alt php: aryDrugStorage[1]['name'];
+                                                 title php: aryDrugStorage[1]['name']" />
+                                </a>
+                            <a href="#mayaku" class="clickToolTip">
+                                <img tal:condition="php: substr(drug_storage_val,2,1) == 1" tal:attributes="src php: aryDrugStorage[2]['icon'];
+                                                 alt php: aryDrugStorage[2]['name'];
+                                                 title php: aryDrugStorage[2]['name']" />
+                                </a>
+                        </tal:block>
+                        <p id="okusute" class="toolTip invisible">
+                                麻薬の対応状況を確認できます
+                        </p>
+                    </tal:block>
+                    <tal:block tal:condition="php: !empty(aryType[drugstore['DrugStore']['drugstore_CD']])">
+                        <tal:block tal:define="global list_icon php: aryType[drugstore['DrugStore']['drugstore_CD']]">
+                            <tal:block tal:repeat="item list_icon">
+                                <tal:block tal:condition="php: item == 3">
+                                    <a href="#okusute" class="clickToolTip">
+                                    <img tal:condition="php: !empty(aryTypeOwnDrugstore[item]['icon'])" tal:attributes="src php: aryTypeOwnDrugstore[item]['icon'];
+                                                 alt php: aryTypeOwnDrugstore[item]['alt'];
+                                                 title php: aryTypeOwnDrugstore[item]['title']" />
+                                    </a>
+                                    <p id="okusute" class="toolTip invisible">
+                                おくすてネット加盟薬局
+                                    </p>
+                                </tal:block>
+                                <tal:block tal:condition="php: item == 4">
+                                    <a href="#renkei" class="clickToolTip">
+                                    <img tal:condition="php: !empty(aryTypeOwnDrugstore[item]['icon'])" tal:attributes="src php: aryTypeOwnDrugstore[item]['icon'];
+                                                 alt php: aryTypeOwnDrugstore[item]['alt'];
+                                                 title php: aryTypeOwnDrugstore[item]['title']" />
+                                    </a>
+                                    <p id="renkei" class="toolTip invisible">
+                                        地域連携加盟薬局
+                                    </p>
+                                </tal:block>
+                            </tal:block>
+                        </tal:block>
+                    </tal:block>
+                    <span class="icon_small">※アイコンをクリックすると説明が出ます。</span>
+                </td>
+            </tr>
+        </table>
+        <tal:block tal:condition="php: !empty(aryFeature[drugstore['DrugStore']['drugstore_CD']])">
+        <table cellspacing="0" cellpadding="0" border="0" class="news">
+            <tr>
+                <th>ニュース</th>
+                <td>
+                    <tal:block content="structure php:view.element('list_feature')"></tal:block>
+                </td>
+            </tr>
+        </table>
+        </tal:block>
+
+        <div class="info-left">
+           <div class="data_caption">
+              <span tal:condition="php: !empty(drugstore['DrugStore']['drugstore_name'])"
+                   tal:replace="structure php: nl2br(drugstore['DrugStore']['drugstore_name'])"></span>の在宅訪問 実施状況
+           </div>
+            <table cellspacing="0" cellpadding="0" border="0" class="data">
+                <tr tal:condition="php: !empty(drugstore['DrugStore']['imple_area'])">
+                    <th>実施区域</th>
+                    <td>
+                        <span tal:condition="php: !empty(drugstore['DrugStore']['imple_area'])"
+                              tal:replace="structure php: nl2br(drugstore['DrugStore']['imple_area'])">
+                        </span>
+                    </td>
+                </tr>
+                <tr tal:condition="php: !empty(drugstore['DrugStore']['visit_subject'])">
+                    <th>訪問対象</th>
+                    <td>
+                        <span tal:condition="php: !empty(drugstore['DrugStore']['visit_subject'])"
+                              tal:replace="structure php: nl2br(drugstore['DrugStore']['visit_subject'])">
+                        </span><br />
+                        <span tal:define="visit_subject_add php: (!empty(drugstore['DrugStore']['visit_subject_add'])) ? '※' . drugstore['DrugStore']['visit_subject_add'] : ''"
+                              tal:replace="structure php: visit_subject_add">
+                        </span>
+                    </td>
+                </tr>
+                <tr tal:condition="php: !empty(drugstore['DrugStore']['visit_avail_date'])">
+                    <th>訪問可能日時</th>
+                    <td>
+                        <span tal:define="visit_avail_date php: (!empty(drugstore['DrugStore']['visit_avail_date'])) ? drugstore['DrugStore']['visit_avail_date'] : ''"
+                              tal:replace="structure php: nl2br(visit_avail_date)">
+                        </span><br />
+                        <span tal:define="visit_day_add php: (!empty(drugstore['DrugStore']['visit_day_add'])) ? '※' . drugstore['DrugStore']['visit_day_add'] : ''"
+                              tal:replace="structure php: nl2br(visit_day_add)"></span>
+                    </td>
+                </tr>
+                <tr tal:condition="php: !empty(drugstore['DrugStore']['visit_guidance_show'])">
+                    <th>在宅実施状況</th>
+                    <td>
+                        <span tal:define="visit_guidance php: (!empty(drugstore['DrugStore']['visit_guidance_show'])) ? drugstore['DrugStore']['visit_guidance_show'] : ''"
+                              tal:replace="structure php: nl2br(visit_guidance)">
+                        </span><br />
+                        <span tal:define="visit_real_record php: (!empty(drugstore['DrugStore']['visit_real_record'])) ? '※' . drugstore['DrugStore']['visit_real_record'] : ''"
+                              tal:replace="structure php: nl2br(visit_real_record)">
+                        </span>
+                    </td>
+                </tr>
+                <tr tal:condition="php: !empty(drugstore['DrugStore']['pal_care_show'])">
+                    <th>緩和ケア対応</th>
+                    <td>
+                        <span tal:define="pal_care php: (!empty(drugstore['DrugStore']['pal_care_show'])) ? drugstore['DrugStore']['pal_care_show'] : ''"
+                              tal:replace="structure php: nl2br(pal_care)">
+                        </span><br />
+                        <span tal:define="pal_care_real_record php: (!empty(drugstore['DrugStore']['pal_care_real_record'])) ? '※' . drugstore['DrugStore']['pal_care_real_record'] : ''"
+                              tal:replace="structure php: nl2br(pal_care_real_record)">
+                        </span>
+                    </td>
+                </tr>
+                <tr tal:condition="php: !empty(drugstore['DrugStore']['dementia_spt_show'])">
+                    <th>認知症対応</th>
+                    <td>
+                        <span tal:condition="php: !empty(drugstore['DrugStore']['dementia_spt_show'])"
+                              tal:replace="structure php: nl2br(drugstore['DrugStore']['dementia_spt_show'])">
+                        </span><br />
+                        <span tal:define="dementia_spt_add php: (!empty(drugstore['DrugStore']['dementia_spt_add'])) ? '※' . drugstore['DrugStore']['dementia_spt_add'] : ''"
+                              tal:replace="structure php: dementia_spt_add">
+                        </span>
+                    </td>
+                </tr>
+                <tr tal:condition="php: !empty(drugstore['DrugStore']['child_spt_show'])">
+                    <th>小児対応</th>
+                    <td>
+                        <span tal:condition="php: !empty(drugstore['DrugStore']['child_spt_show'])"
+                              tal:replace="structure php: nl2br(drugstore['DrugStore']['child_spt_show'])">
+                        </span><br />
+                        <span tal:define="child_spt_add php: (!empty(drugstore['DrugStore']['child_spt_add'])) ? '※' . drugstore['DrugStore']['child_spt_add'] : ''"
+                              tal:replace="structure php: child_spt_add">
+                        </span>
+                    </td>
+                </tr>
+                <tr tal:condition="php: !empty(drugstore['DrugStore']['aseptic_handle_show']) || !empty(drugstore['DrugStore']['aseptic_add'])">
+                    <th>無菌調剤対応</th>
+                    <td>
+                       <span tal:define="aseptic_handle php: (!empty(drugstore['DrugStore']['aseptic_handle_show'])) ? drugstore['DrugStore']['aseptic_handle_show'] : ''"
+                             tal:replace="structure php: nl2br(aseptic_handle)">
+                        </span><br tal:condition="php: !empty(drugstore['DrugStore']['aseptic_handle_show'])"/>
+                        <span tal:define="aseptic_add php: (!empty(drugstore['DrugStore']['aseptic_add'])) ? '※' . drugstore['DrugStore']['aseptic_add'] : ''"
+                              tal:replace="structure php: nl2br(aseptic_add)">
+                        </span>
+                    </td>
+                </tr>
+                <tr tal:condition="php: !empty(drugstore['DrugStore']['24_hour_aday_show'])">
+                    <th>24時間体制</th>
+                    <td>
+                        <span tal:define="hour_aday php: (!empty(drugstore['DrugStore']['24_hour_aday_show'])) ? drugstore['DrugStore']['24_hour_aday_show'] : ''"
+                              tal:replace="structure php: nl2br(hour_aday)">
+                        </span><br />
+                        <span tal:define="hour_aday_add php: (!empty(drugstore['DrugStore']['24_hour_aday_add'])) ? '※' . drugstore['DrugStore']['24_hour_aday_add'] : ''"
+                              tal:replace="structure php: nl2br(hour_aday_add)">
+                        </span>
+                    </td>
+                </tr>
+                <tr tal:condition="php: !empty(drugstore['DrugStore']['non_dispensing'])">
+                    <th>調剤以外の取扱い</th>
+                    <td>
+                        <span tal:define="non_dispensing php: (!empty(drugstore['DrugStore']['non_dispensing'])) ? drugstore['DrugStore']['non_dispensing'] : ''"
+                              tal:replace="structure php: nl2br(non_dispensing)">
+                        </span>
+                    </td>
+                </tr>
+                <tr tal:condition="php: !empty(drugstore['DrugStore']['drug_storage']) || !empty(drugstore['DrugStore']['drug_add'])">
+                    <th>麻薬の保管</th>
+                    <td>
+                        <span tal:define="drug_storage php: (!empty(drugstore['DrugStore']['drug_storage_show'])) ? drugstore['DrugStore']['drug_storage_show'] : ''"
+                              tal:replace="structure php: nl2br(drug_storage)">
+                        </span><br tal:condition="php: !empty(drugstore['DrugStore']['drug_storage_show'])"/>
+                        <span tal:define="drug_add php: (!empty(drugstore['DrugStore']['drug_add'])) ? '※' . drugstore['DrugStore']['drug_add'] : ''"
+                              tal:replace="structure php: nl2br(drug_add)">
+                        </span>
+                    </td>
+                </tr>
+                <tr tal:condition="php: !empty(drugstore['DrugStore']['discharge_conf_join'])">
+                    <th>退院カンファレンス<br />への参加</th>
+                    <td>
+                        <span tal:define="discharge_conf_join php: (!empty(drugstore['DrugStore']['discharge_conf_join'])) ? drugstore['DrugStore']['discharge_conf_join'] : ''"
+                              tal:replace="structure php: nl2br(discharge_conf_join)">
+                        </span>
+                    </td>
+                </tr>
+                <tr tal:condition="php: !empty(drugstore['DrugStore']['watch_team'])">
+                    <th>見守りチームの<br/>一員（仮）</th>
+                    <td>
+                        <span tal:define="watch_team php: (!empty(drugstore['DrugStore']['watch_team'])) ? drugstore['DrugStore']['watch_team'] : ''"
+                              tal:replace="structure php: nl2br(watch_team)">
+                        </span>
+                    
+                    </td>
+                </tr>
+                <tr tal:condition="php: !empty(drugstore['DrugStore']['other_info'])">
+                    <th>他</th>
+                    <td>
+                        <span tal:define="other_info php: (!empty(drugstore['DrugStore']['other_info'])) ? drugstore['DrugStore']['other_info'] : ''"
+                              tal:replace="structure php: nl2br(other_info)"></span>
+                     </td>
+                </tr>
+                <tr tal:condition="php: !empty(drugstore['DrugStore']['staff_cm'])">
+                    <th>スタッフコメント</th>
+                    <td>
+                        <span tal:define="staff_cm php: (!empty(drugstore['DrugStore']['staff_cm'])) ? drugstore['DrugStore']['staff_cm'] : ''"
+                              tal:replace="structure php: nl2br(staff_cm)"></span>
+                    </td>
+                </tr>
+        </table>
+    
+        <div class="data_caption">
+            <span tal:condition="php: !empty(drugstore['DrugStore']['drugstore_name'])"
+                  tal:replace="structure php: nl2br(drugstore['DrugStore']['drugstore_name'])">
+            </span>の体制
+        </div>
+        <table cellspacing="0" cellpadding="0" border="0" class="data">
+            <tr tal:condition="php: !empty(drugstore['DrugStore']['shipping_sys'])">
+                 <th>移動方法</th>
+                 <td colspan="2">
+                     <span tal:define="shipping_sys php: (!empty(drugstore['DrugStore']['shipping_sys'])) ? drugstore['DrugStore']['shipping_sys'] : ''"
+                           tal:replace="structure php: nl2br(shipping_sys)"></span>
+                 </td>
+             </tr>
+            <tr tal:condition="php: !empty(drugstore['DrugStore']['visit_pharmacist_num'])">
+                 <th>訪問薬剤師人数</th>
+                 <td colspan="2">
+                     <span tal:define="visit_pharmacist_num php: (isset(drugstore['DrugStore']['visit_pharmacist_num'])) ? drugstore['DrugStore']['visit_pharmacist_num'] . '名' : ''"
+                           tal:replace="structure php: nl2br(visit_pharmacist_num)"></span>
+                </td>
+             </tr>
+             <tal:block tal:define="global skill_1_val php: !empty(drugstore['DrugStore']['skill_1']) ? drugstore['DrugStore']['skill_1'] : '';
+                                    global skill_2_val php: !empty(drugstore['DrugStore']['skill_2']) ? drugstore['DrugStore']['skill_2'] : '';
+                                    global skill_3_val php: !empty(drugstore['DrugStore']['skill_3']) ? drugstore['DrugStore']['skill_3'] : ''">
+             <tr tal:condition="php: !empty(aryLicense[skill_1_val]) || !empty(aryLicense[skill_2_val]) || !empty(aryLicense[skill_3_val])">
+                <th>保有資格</th>
+                <td>
+                    <span tal:condition="php: !empty(aryLicense[skill_1_val]['license'])"
+                          tal:replace="structure php: nl2br(aryLicense[skill_1_val]['license'])">
+                    </span>
+                    <span tal:condition="php: !empty(drugstore['DrugStore']['skill_1_pple_num'])"
+                          tal:replace="structure php: '（' . drugstore['DrugStore']['skill_1_pple_num'] . '名）''">
+                    </span>
+                    <span tal:condition="php: !empty(aryLicense[skill_1_val]['license'])"><br /></span>
+                    <span tal:condition="php: !empty(aryLicense[skill_2_val]['license'])"
+                          tal:replace="structure php: nl2br(aryLicense[skill_2_val]['license'])">
+                    </span>
+                    <span tal:condition="php: !empty(drugstore['DrugStore']['skill_2_pple_num'])"
+                          tal:replace="structure php: '（' . drugstore['DrugStore']['skill_2_pple_num'] . '名）''">
+                    </span>
+                    <span tal:condition="php: !empty(aryLicense[skill_1_val]['license'])"><br /></span>
+                    <span tal:condition="php: !empty(aryLicense[skill_3_val]['license'])"
+                          tal:replace="structure php: nl2br(aryLicense[skill_3_val]['license'])">
+                    </span>
+                    <span tal:condition="php: !empty(drugstore['DrugStore']['skill_3_pple_num'])"
+                          tal:replace="structure php: '（' . drugstore['DrugStore']['skill_3_pple_num'] . '名）''">
+                    </span>
+                </td>
+                <span tal:comment="#116 Start Luvina Modify" tal:replace=""></span>
+                <td class="nichizai_icon">
+                    <tal:block tal:condition="php: !empty(aryLicense[skill_1_val]['icon'])">
+                          <img class="img_icon" data-crop-width='35' data-crop-height='35' tal:attributes="src php: 'data:image/jpeg;;base64,' . aryLicense[skill_1_val]['icon'];
+                                                 alt php: aryLicense[skill_1_val]['license'];
+                                                 title php: aryLicense[skill_1_val]['license']" />
+                    </tal:block>
+                    <tal:block tal:condition="php: !empty(aryLicense[skill_2_val]['icon'])">
+                          <img class="img_icon" data-crop-width='35' data-crop-height='35' tal:attributes="src php: 'data:image/jpeg;;base64,' . aryLicense[skill_2_val]['icon'];
+                                                 alt php: aryLicense[skill_2_val]['license'];
+                                                 title php: aryLicense[skill_2_val]['license']" />
+                    </tal:block>
+                    <tal:block tal:condition="php: !empty(aryLicense[skill_3_val]['icon'])">
+                          <img class="img_icon" data-crop-width='35' data-crop-height='35' tal:attributes="src php: 'data:image/jpeg;;base64,' . aryLicense[skill_3_val]['icon'];
+                                                 alt php: aryLicense[skill_3_val]['license'];
+                                                 title php: aryLicense[skill_3_val]['license']" />
+                    </tal:block>
+                </td>
+                <span tal:comment="#116 End Luvina Modify" tal:replace=""></span>
+            </tr>
+            </tal:block>
+            <tr>
+                <th>関連団体</th>
+                <td colspan="2">
+                    <span tal:comment="#121 Start Luvina Modify" tal:replace=""></span>
+                    <tal:block content="structure php:view.element('own_type')"></tal:block>
+                    <span tal:comment="#121 End Luvina Modify" tal:replace=""></span>
+                </td>
+            </tr>
+        </table>
+        <span tal:comment="#130 Start Luvina Modify" tal:replace=""></span>
+        <span tal:comment="#130 End Luvina Modify" tal:replace=""></span>
+        <div class="data_caption">
+            <span tal:condition="php: !empty(drugstore['DrugStore']['drugstore_name'])"
+                  tal:replace="structure php: nl2br(drugstore['DrugStore']['drugstore_name'])">
+            </span>の地図
+        </div>
+        <!-- Google Map -->
+            <div id="store_map" class="store_map"></div>
+            <div style="clear:both"></div>
+            <script type="text/javascript">
+               function submitForm() {
+                   document.form_map.target = "profile";
+                   window.open('','profile','toolbars=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,resizable=1,width=650,height=950,resize=no');
+                   document.form_map.submit();
+               }
+           </script>
+           <div>
+               <span tal:comment="#106 Start Luvina Modify" tal:replace=""></span>
+               <form name="form_map" action="/map" method="post">
+               <span tal:comment="#106 End Luvina Modify" tal:replace=""></span>
+                  <input type="hidden" name="drugstore_name" tal:attributes="value drugstore/DrugStore/drugstore_name" />
+                  <input type="hidden" name="drugstore_name_yomi" tal:attributes="value drugstore/DrugStore/drugstore_name_yomi" />
+                  <input type="hidden" name="latitude" tal:attributes="value drugstore/DrugStore/latitude" />
+                  <input type="hidden" name="longitude" tal:attributes="value drugstore/DrugStore/longitude" />
+                  <input type="hidden" name="drugstore_address" tal:attributes="value drugstore/DrugStore/drugstore_address" />
+                  <input type="hidden" name="drugstore_name_meta" tal:attributes="value drugstore_name_meta" />
+                  <input class="print_button" type="button" name="btnSubmit" value="地図を拡大・印刷" onclick="submitForm()" />
+               </form>
+            </div>
+	    </div>
+        <span tal:comment="#130 Start Luvina Modify" tal:replace=""></span>
+        <span tal:comment="#130 End Luvina Modify" tal:replace=""></span>
+    </div>
+
+    <!-- 薬局連絡先 -->
+    <div class="store_contact">
+        <div class="store_contact_title">薬局連絡先</div>
+        <table cellspacing="0" cellpadding="0" border="0" class="contact">
+            <tr>
+                <th>問合せ<br/>担当者</th>
+                <td>
+                    <span tal:condition="php: !empty(drugstore['DrugStore']['pic_position'])"
+                          tal:replace="structure php: nl2br(drugstore['DrugStore']['pic_position']) . '<br />'">
+                    </span>
+                    <span tal:condition="php: empty(drugstore['DrugStore']['pic_name_yomi'])"
+                          tal:replace="structure php: nl2br(drugstore['DrugStore']['pic_name'])">
+                    </span>
+                    <span tal:condition="php: (!empty(drugstore['DrugStore']['pic_name_yomi']))"
+                          tal:replace="structure php: nl2br(drugstore['DrugStore']['pic_name'] . '（' . drugstore['DrugStore']['pic_name_yomi'] . '）')">
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <th>住所</th>
+                <td>
+                    <span tal:condition="php: !empty(drugstore['DrugStore']['drugstore_address'])"
+                          tal:replace="structure php: nl2br(drugstore['DrugStore']['drugstore_address'])">
+                    </span>
+                    <div class="mapLink"><a href="#store_map">MAP</a></div>
+                </td>
+            </tr>
+            <tr>
+                <th>FAX</th>
+                <td tal:define="drugstore_fax php: (!empty(drugstore['DrugStore']['drugstore_fax'])) ? drugstore['DrugStore']['drugstore_fax'] : '-'"
+                    tal:content="drugstore_fax">-
+                </td>
+            </tr>
+            <tr>
+                <th>営業時間</th>
+                <td>
+                    <span tal:comment="#122 Start Luvina Modify" tal:replace=""></span>
+                    <span tal:condition="php: !empty(drugstore['DrugStore']['business_hour'])"
+                          tal:content="structure php: nl2br(drugstore['DrugStore']['business_hour'])">
+                    </span>
+                    <span tal:comment="#122 End Luvina Modify" tal:replace=""></span>
+                </td>
+            </tr>
+            <tr>
+                <th>電話</th>
+                <td>
+                    <span class="tell"
+                        tal:condition="php: !empty(drugstore['DrugStore']['drugstore_tel'])"
+                        tal:content="drugstore/DrugStore/drugstore_tel">
+                    </span>
+                    <br /><span class="call_attention">※ ご連絡の際は「訪問薬局ナビを見て電話しました」と伝えるとスムーズです</span>
+                </td>
+            </tr>
+        </table>
+       <span tal:comment="#127 Start Luvina Modify" tal:replace=""></span>
+       <tal:block tal:condition="php: !empty(pharmacistDetail)">
+       <div id="pc-detail-pharmacist">
+           <h3>在宅訪問薬剤師</h3>
+           <a tal:define="link_detail php: '/voice/person/person-' . pharmacistDetail['pharmacist_id'] . '.html'" tal:attributes="href html:url(link_detail)">
+                   <div class="pc-detail-pharmacist-wrap">
+                       <div class="pc-detail-pharmacist-left">
+                           <img width="64" height="64" tal:attributes="src php:pharmacistDetail['image']; alt php:nl2br(pharmacistDetail['name'])" />
+                       </div>
+                       <div class="pc-detail-pharmacist-right">
+                       <dl>
+                           <dt>
+                               <span tal:condition="php: !empty(pharmacistDetail['drugstore_name'])" tal:content="structure php: nl2br(pharmacistDetail['drugstore_name'])"></span>
+                           </dt>
+                           <dd>
+                               <span tal:condition="php: !empty(pharmacistDetail['name'])" tal:content="structure php: nl2br(pharmacistDetail['name'])"></span>
+                           </dd>
+                       </dl>
+                       <p tal:condition="php: !empty(pharmacistDetail['discription'])" tal:content="structure php: nl2br(pharmacistDetail['discription'])"></p>
+                       </div>
+                   </div>
+               </a>
+       </div>
+       </tal:block>
+       <span tal:comment="#127 End Luvina Modify" tal:replace=""></span>
+       <span tal:comment="#106 Start Luvina Modify" tal:replace=""></span>
+       <tal:block  tal:condition="php: !isset(isPre)">
+       <div class="right_col_banner">
+            <a href="http://pharma-navi.net/column/question/episode-hyn-001/"><img src="/img/pc/side_banner_users_voice.png" width="280" height="140" alt="感想を投稿してQUOカードを当てよう！" /></a>
+       </div>
+       </tal:block>
+       <span tal:comment="#106 End Luvina Modify" tal:replace=""></span>
+    </div>
+    <br style="clear: both;" />
+    <span tal:comment="#130 Start Luvina Modify" tal:replace=""></span>
+    <tal:block tal:condition="php: !empty(drugstoreCorporation)">
+        <div id="detail-otherstores">
+            <h3><span tal:replace="corporationName"></span>の他の店舗</h3>
+            <ul>
+                <tal:block tal:repeat="item drugstoreCorporation">
+                    <span tal:define="global url_staticmap php: 'http://maps.googleapis.com/maps/api/staticmap?markers=' . item['drugstore_address'] . '&size=200x150&key='. staticmapKey"></span>
+                    <li>
+                         <a tal:define="link_detail php: '/detail/' . item['drugstore_CD']"
+                             tal:attributes="href html:url(link_detail)">
+                             <img tal:attributes="src url_staticmap" width="200" height="150" alt="${item/drugstore_name}" /><br />
+                             <span tal:replace="php: item['drugstore_name']"></span>
+                        </a>
+                    </li>
+                </tal:block>
+            </ul>
+        </div>
+        <div class="corporation_btn">
+            <a tal:define="link_corporation php: '/corporation/' . drugstore['DrugStore']['com_CD']'" tal:attributes="href html:url(link_corporation)">
+                <span tal:replace="corporationName"></span>のほかの店舗を探す
+            </a>
+        </div>
+    </tal:block>
+    <span tal:comment="#130 Start Luvina Modify" tal:replace=""></span>
+    <span tal:comment="#106 Start Luvina Modify" tal:replace=""></span>
+        <tal:block  tal:condition="exists: isPre">
+        <div class="box-idea" style="max-width: 538px;">
+            <span tal:comment="#106 Start Luvina Fix Bug 374" tal:replace=""></span>
+            <hr style="margin-bottom: 15px;"/>
+            <span tal:comment="#106 End Luvina Fix Bug 374" tal:replace=""></span>
+            <form name="form_idea" id="form_idea" action="/approvaldrugstore" method="post">
+                <p class="text-idea">上記の内容でよろしければ「承認」を選択の上、「送信」ボタンを押下してください。</p>
+                <p class="text-idea">修正をご希望される場合には、「保留」を選択後、修正点をご記入いただき「送信」ボタンを押下してください。</p>
+                <div class="radio-idea">
+                    <label><input type="radio" name="display_type" value="1" checked="checked"/>承認</label>
+                    &nbsp; &nbsp; &nbsp; 
+                    <label><input type="radio" name="display_type" value="0" />保留</label>
+                </div>
+                <div class="data_caption">ご意見、修正点などございましたらご記入ください。</div>
+                <div>
+                    <textarea name="idea_ratify" rows="3" cols="63" class="textarea-box" ></textarea>
+                </div>
+                <div class="btn-box-idea">
+                    <input type="hidden" name="drugstore_CD" value="${drugstore/DrugStore/drugstore_CD}" />
+                    <input type="hidden" name="unique_key" value="${isPre}" />
+                    <input type="hidden" name="display_type" id="display_type" value="" />
+                    <input type="button" class="btn_approval" value="送信"/>
+                </div>
+            </form>
+        </div>
+        </tal:block>
+        <span tal:comment="#106 End Luvina Modify" tal:replace=""></span>
+    <span tal:comment="#130 End Luvina Modify" tal:replace=""></span>
+    <span tal:comment="#130 End Luvina Modify" tal:replace=""></span>
+    <!-- page top -->
+    <span tal:comment="#96 Start Luvina Modify" tal:replace=""></span>
+    <a id="scroll_page_top" class="l-yk" href="javascript:;"><span style="margin-bottom: 18px;">《●</span>ペ<span>ー</span>ジの先頭へ </a>
+    <span tal:comment="#96 End Luvina Modify" tal:replace=""></span>
+    <!-- //page top -->
+</tal:block>
+<span tal:comment="#110 Start Luvina Modify" tal:replace=""></span>
+    <tal:block  tal:condition="php: empty(drugstore)">
+        <span tal:comment="#106 Start Luvina Modify" tal:replace=""></span>
+        <h1 class="result" style="line-height: 2;">
+        <span tal:comment="#106 End Luvina Modify" tal:replace=""></span>
+            <span tal:comment="#106 Start Luvina Modify" tal:replace=""></span>
+            <span tal:replace="structure php: errors">お探しの薬局データが見つかりませんでした。<br />大変お手数ですが、<a href="/" title="訪問薬局ナビ">こちら</a>から再度検索をお試しください。</span>
+            <span tal:comment="#106 End Luvina Modify" tal:replace=""></span>
+        </h1>
+    </tal:block>
+<span tal:comment="#110 End Luvina Modify" tal:replace=""></span>
+</div>
+<span tal:comment="#102 End Luvina Modify" tal:replace=""></span>

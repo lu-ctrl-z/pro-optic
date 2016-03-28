@@ -1,0 +1,10 @@
+<div class="datagrid_page">
+     <span tal:condition="Paginator:options(array('url' => url_params))"></span>
+     <span tal:content="textPaginate"></span>
+     <span tal:condition="Paginator:numbers()" tal:define="link_text string: | 前へ;"
+           tal:replace="structure Paginator:prev(link_text, array( 'class' => '', 'tag' => '' ), null, array( 'class' => 'datagrid_page_prev', 'tag' => '' ))"></span>
+     <span tal:condition="Paginator:numbers()"
+           tal:replace="structure Paginator:numbers(array('modulus' => modulus,'tag' => '', 'separator' => '', 'currentClass' => 'now', 'class' => 'page', 'currentTag' => 'span' ))">1</span>
+     <span tal:condition="Paginator:numbers()" tal:define="link_text string:次へ;"
+           tal:replace="structure Paginator:next(link_text,array( 'class' => '', 'tag' => '' ), null, array( 'class' => 'datagrid_page_next', 'tag' => '' ))"></span>
+</div>

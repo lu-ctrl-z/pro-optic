@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="ja" lang="ja">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="viewport" content="width=device-width"/>
+    <meta name="description" content="訪問看護ステーションナビ"/>
+    <meta name="keywords" content="訪問看護ステーションナビ"/>
+    <meta name="robots" content="index,follow"/>
+    <meta name="author" content="SMS" />
+    <!--open graph-->
+    <meta property="og:title" content="訪問看護ステーションナビ"/>
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="http://ho-kan.jp/"/>
+    <meta property="og:image" content="http://ho-kan.jp/thumbnail.png"/>
+    <meta property="og:site_name" content="訪問看護ステーションナビ"/>
+    <meta property="og:email" content="info@ho-kan.jp"/>
+    <!--/open graph-->
+    <title>訪問看護ステーションナビ</title>
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link href="/css/main.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="js/jquery-1.11.3.min.js"></script>
+    <script type="text/javascript" src="js/script.js"></script>
+</head>
+<body>
+        <!--header-->
+        <div id="header">
+            <div id="header_profile" tal:condition="exists:isLogin">
+                  <span tal:content="php: userInfo['name_sei']"></span>様 – 管理者会員| <a
+                    href="/AdminUser/logout">ログアウト</a>
+            </div>
+            <br clear="all"></br>
+        </div>
+        <!-- gmenu/pkz -->
+        <div id="navi" tal:condition="exists:isLogin">
+            <ul id="gmenu">
+                <li><a href="/portal/slist" tal:attributes="class php:view.params.controller=='AdminStation' ? 'active_menu' : 'deactive_menu'">訪問看護ステーション管理</a></li>
+                <li><a href="/portal/ilist" tal:attributes="class php:view.params.controller=='AdminInterview' ? 'active_menu' : 'deactive_menu'">インタビュー管理</a></li>
+                <li><a href="/portal/ulist" tal:attributes="class php:view.params.controller=='AdminUser' ? 'active_menu' : 'deactive_menu'">会員管理</a></li>
+            </ul>
+        </div>
+        <br clear="all"></br>
+
+        <tal:block tal:replace="structure content_for_layout | default"></tal:block>
+
+        <br clear="all"></br>
+        <!-- footer -->
+        <footer>
+        </footer>
+</body>
+</html>

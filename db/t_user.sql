@@ -1,0 +1,20 @@
+CREATE TABLE t_user(
+id int(11) primary key NOT NULL auto_increment comment '項番',
+user_mail varchar(128) NOT NULL comment 'メールアドレス',
+name_sei varchar(32) NOT NULL comment '姓',
+name_mei varchar(32) NOT NULL comment '名',
+name_kana_sei varchar(32) NOT NULL comment '姓（カナ）',
+name_kana_mei varchar(32) NOT NULL comment '名（カナ）',
+department varchar(128) default NULL comment '所属部署',
+tel varchar(16) NOT NULL comment '電話番号',
+fax varchar(16) default NULL comment 'FAX番号',
+password varchar(32) NOT NULL comment 'パスワード(hash)',
+com_CD varchar(16) NOT NULL comment '法人コード',
+user_mode int(11) NOT NULL comment 'スーパーユーザ＝1、管理者会員＝2、一般会員＝3、未承認＝0',
+entry_date datetime default NULL comment '登録日',
+entry_user varchar(24) default NULL comment '登録者',
+update_date datetime default NULL comment '最終更新日',
+update_user varchar(24) default NULL comment '最終更新者',
+delete_date datetime default NULL comment '削除日',
+delete_user varchar(24) default NULL comment '削除者'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

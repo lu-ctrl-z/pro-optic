@@ -1,0 +1,130 @@
+<h3>訪問看護ステーションを追加</h3>
+<form action="/portal/sadd/preview" method="post" name="form_uadd">
+    <h3>t_station_profile</h3>
+    <table><tbody>
+        <tr>
+           <th>メールアドレス <span class="req">*</span></th>
+           <td>
+               
+               <span class="form-error-message" tal:condition="php: !empty(aryError['visit_guidance'])"
+                        tal:content="php: aryError['visit_guidance'][0]">
+                </span>
+           </td>
+        </tr>
+        <tr>
+           <th>店舗コード</th>
+           <td>
+               <input type=textbox name="station_CD"
+                   tal:attributes="value php: (isset(aryData) && !empty(aryData['station_CD'])) ? aryData['station_CD'] : '' " />
+               <span tal:condition="php: isset(aryError) && !empty(aryError['station_CD'])"
+                        tal:content="php: aryError['station_CD']">
+               </span>
+           </td>
+       </tr>
+       <tr>
+           <th>店舗名</th>
+           <td>
+               <input type=textbox name="station_name"
+                   tal:attributes="value php: (isset(aryData) && !empty(aryData['station_name'])) ? aryData['station_name'] : '' " />
+               <span tal:condition="php: isset(aryError) && !empty(aryError['station_CD'])"
+                        tal:content="php: aryError['station_CD']">
+               </span>
+           </td>
+       </tr>
+       <tr>
+           <th>店舗名（カナ）</th>
+           <td>
+               <input type=textbox name="station_name_yomi"
+                   tal:attributes="value php: (isset(aryData) && !empty(aryData['station_name_yomi'])) ? aryData['station_name_yomi'] : '' " />
+               <span tal:condition="php: isset(aryError) && !empty(aryError['station_name_yomi'])"
+                        tal:content="php: aryError['station_name_yomi']">
+               </span>
+           </td>
+       </tr>
+       <tr>
+           <th>指定事業所番号</th>
+           <td>
+               <input type=textbox name="trust_number"
+                   tal:attributes="value php: (isset(aryData) && !empty(aryData['trust_number'])) ? aryData['trust_number'] : '' " />
+               <span tal:condition="php: isset(aryError) && !empty(aryError['trust_number'])"
+                        tal:content="php: aryError['trust_number']">
+               </span>
+           </td>
+       </tr>
+       <tr>
+           <th>郵便番号</th>
+           <td>
+               <input type=textbox name="zip"
+                   tal:attributes="value php: (isset(aryData) && !empty(aryData['zip'])) ? aryData['zip'] : '' " />
+               <span tal:condition="php: isset(aryError) && !empty(aryError['zip'])"
+                        tal:content="php: aryError['zip']">
+               </span>
+           </td>
+       </tr>
+       <tr>
+           <th>所在地</th>
+           <td>
+               <input type=textbox name="address"
+                   tal:attributes="value php: (isset(aryData) && !empty(aryData['address'])) ? aryData['address'] : '' " />
+               <span tal:condition="php: isset(aryError) && !empty(aryError['address'])"
+                        tal:content="php: aryError['address']">
+               </span>
+           </td>
+       </tr>
+       <tr>
+           <th>建物名・階数</th>
+           <td>
+               <input type=textbox name="building"
+                   tal:attributes="value php: (isset(aryData) && !empty(aryData['building'])) ? aryData['building'] : '' " />
+               <span tal:condition="php: isset(aryError) && !empty(aryError['building'])"
+                        tal:content="php: aryError['building']">
+               </span>
+           </td>
+       </tr>
+       <tr>
+           <th>事業所説明見出し</th>
+           <td>
+               <input type=textbox name="title"
+                   tal:attributes="value php: (isset(aryData) && !empty(aryData['title'])) ? aryData['title'] : '' " />
+               <span tal:condition="php: isset(aryError) && !empty(aryError['title'])"
+                        tal:content="php: aryError['title']">
+               </span>
+           </td>
+       </tr>
+       <tr>
+           <th>実施区域</th>
+           <td>
+               <textarea name="imple_area" rows="3" cols="90" 
+                         tal:content="php: !empty(aryDrugstore['imple_area'])? aryDrugstore['imple_area'] : '' ">
+               </textarea>
+               <span tal:condition="php: isset(aryError) && !empty(aryError['title'])"
+                        tal:content="php: aryError['title']">
+               </span>
+           </td>
+       </tr>
+       <tr>
+           <th>実施区域</th>
+           <td>
+               <tal:block tal:condition="php: !empty(ary_visit_guidance)">
+                  <select name="visit_guidance">
+                      <option value="">選択してください</option>
+                      <tal:block tal:repeat="item visit_guidance">
+                          <option value="${repeat/item/key}" tal:attributes ="selected php: aryData['visit_guidance'] ==  repeat.item.key ? 'true' : ''">${item}</option>
+                      </tal:block>
+                  </select>
+               </tal:block>
+               <span tal:condition="php: isset(aryError) && !empty(aryError['title'])"
+                        tal:content="php: aryError['title']">
+               </span>
+           </td>
+       </tr>
+       
+       
+               
+    </tbody></table>
+    <div class="status_btn">
+        <input type="hidden" tal:attributes="value request/params/_Token/key" name="data[Csrf][key]" />
+        <input type="hidden" tal:attributes="value request/params/_TokenDuplicate/key" name="data[Duplicate][key]" />
+        <input type="submit" value="確認" name="submit" />
+    </div>
+</form>

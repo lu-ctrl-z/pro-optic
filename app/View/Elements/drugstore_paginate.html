@@ -1,0 +1,13 @@
+<div class="pager">
+    <ul>
+        <span tal:condition="Paginator:options(array('url' => url_params))"></span>
+        <span tal:condition="Paginator:numbers()" tal:define="link_text string:前へ;"
+              tal:replace="structure Paginator:prev(link_text, array( 'class' => '', 'tag' => 'li' ), null, array( 'class' => 'disabled', 'tag' => 'li' ))"
+                >前へ</span>
+        <span tal:condition="Paginator:numbers()"
+              tal:replace="structure Paginator:numbers(array('modulus' => modulus,'tag' => 'li', 'separator' => '', 'currentClass' => 'now', 'class' => 'page', 'currentTag' => 'span' ))">1</span>
+        <span tal:condition="Paginator:numbers()" tal:define="link_text string:次へ;"
+              tal:replace="structure Paginator:next(link_text,array( 'class' => '', 'tag' => 'li' ), null, array( 'class' => 'disabled', 'tag' => 'li' ))"
+                >次へ</span>
+    </ul>
+</div>

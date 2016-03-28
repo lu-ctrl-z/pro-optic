@@ -1,0 +1,13 @@
+<form action="/entry/send" method="post">
+<table>
+<th>Mail Address: </th>
+<td>
+<p class="form-error-message" tal:condition="php: (isset(app) && !empty(app['user_mail']))"
+         tal:content="php: app['user_mail']">
+</p>
+</td>
+<td><button type="submit" name="regist">register</button></td>
+</table>
+<input type="hidden" tal:attributes="value request/params/_Token/key" name="data[Csrf][key]" />
+<input type="hidden" tal:attributes="value app/user_mail" name="user_mail" />
+</form>

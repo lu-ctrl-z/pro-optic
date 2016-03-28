@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ja">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta name="viewport" content="width=device-width" />
+        <tal:block tal:condition="php: !empty(title_layout)">
+            <title>${title_layout}</title>
+        </tal:block>
+        <tal:block tal:condition="php: !empty(description_layout)">
+            <meta name="description" content="${description_layout}" />
+        </tal:block>
+        <tal:block tal:condition="php: !empty(keywords_layout)">
+            <meta name="keywords" content="${keywords_layout}" />
+        </tal:block>
+        <tal:block tal:condition="php: empty(content_noindex)">
+        <meta name="robots" content="index,follow" />
+        </tal:block>
+        <tal:block tal:condition="php: !empty(content_noindex)">
+            <meta name="robots" content="${content_noindex}" />
+        </tal:block>
+        <meta name="author" content="SMS" />
+
+        <tal:block tal:condition="php: !empty(og_title)">
+            <meta property="og:title" content="${og_title}" />
+        </tal:block>
+
+        <tal:block tal:condition="php: !empty(og_image)">
+            <meta property="og:image" content="${og_image}" />
+        </tal:block>
+        <tal:block tal:condition="php: empty(og_image)">
+            <meta property="og:image" content="http://pharma-navi.net/voice/common/img/pc/thumbnail.png" />
+        </tal:block>
+        <meta property="og:site_name" content="訪問薬局ナビ" />
+        <meta property="og:email" content="info@pharma-navi.net" />
+
+        <link rel="shortcut icon" tal:attributes="href php:FULL_BASE_URL . '/img/pc/favicon.ico'" />
+        <link rel="apple-touch-icon" tal:attributes="href php:FULL_BASE_URL . '/img/sp/apple-touch-icon.png'" />
+    </head>
+<body>
+    <!-- contents -->
+    <div id="contents">
+        <tal:block tal:condition="php: !empty(topicPathList)">
+            <ul id="pkz" class="wrapper">
+                <tal:block tal:repeat="topicPath topicPathList">
+                    <li>
+                        <tal:block tal:condition="php: !empty(topicPath['url'])">
+                        <a href="${php:topicPath['url']}">${php:topicPath['value']}</a>
+                        </tal:block>
+                        <tal:block tal:condition="php: empty(topicPath['url'])">
+                            <span tal:content="php:topicPath['value']"></span>
+                        </tal:block>
+                        <tal:block tal:condition="php: repeat.topicPath.number < repeat.topicPath.length">
+                            <span class="lt">＞</span>
+                        </tal:block>
+                    </li>
+                </tal:block>
+            </ul>
+        </tal:block>
+        <tal:block tal:replace="structure content_for_layout | default"></tal:block>
+    </div>
+    <!-- /contents -->
+    <footer>
+    <div id="footer">
+    </div>
+    </footer>
+</body>
+</html>
