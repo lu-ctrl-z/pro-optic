@@ -67,10 +67,10 @@ class DATABASE_CONFIG {
 	public $default = array(
 		'datasource' => 'Database/Mysql',
 		'persistent' => false,
-		'host' => '192.168.0.101',
-		'login' => 'tinhbv',
-		'password' => 'tinhbv',
-		'database' => 'ldev_hk',
+		'host' => 'localhost',
+		'login' => 'root',
+		'password' => 'root',
+		'database' => 'dev_optic',
 		'prefix' => '',
 		'encoding' => 'utf8',
 	);

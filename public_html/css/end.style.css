@@ -1,0 +1,84 @@
+@CHARSET "UTF-8";
+.menu{
+	font-size: 11px;
+}
+.mainScreen{
+	margin-top: 20px;
+}
+.leftSide {
+    width: 150px;
+    float: left;
+}
+.rightSide {
+    width: 1240px;
+    padding-left:10px;
+    float: right;
+}
+.kanban {
+	background:linear-gradient(#e4effb, #f7fafe);
+	border: 1px solid #aabccf;
+}
+.kanban, .bar {
+	border-radius: 5px 5px 0px 0px;
+}
+.bar {
+    background: rgba(0, 0, 0, 0) linear-gradient(#e1edf9, #dceaf9) repeat scroll 0 0;
+    border-bottom: 1px solid #aabccf;
+    color: #094b8d;
+    font-size: 16px;
+    font-weight: normal;
+    padding: 5px 10px;
+}
+.action {
+    background: linear-gradient( #e4effb, #f7fafe);
+    height: 25px;
+    border-bottom: solid 1px #aabccf;
+    padding-top: 2px;
+}
+.action .tool{
+    float: left;
+    color: #333;
+    position: relative;
+    margin-left: 5px;
+}
+.action .tool a{
+    color: inherit;
+    height: 25px;
+    display: block;
+    line-height: 25px;
+    padding: 0px 10px;
+    border-radius: 3px 3px 0px 0px;
+    border-top: #e4effb solid 1px;
+    border-left: #e4effb solid 1px;
+    border-right: #e4effb solid 1px;
+    cursor: default;
+    box-sizing: border-box;
+    outline: 0;
+}
+.boxup,
+.action .tool.active a,
+.action .tool a:HOVER{
+    border-top: #aabccf solid 1px;
+    border-left: #aabccf solid 1px;
+    border-right: #aabccf solid 1px;
+}
+.action .tool.active a{
+    border-bottom: #e4effb solid 1px;
+    z-index:4;
+    position: relative;
+}
+.box.active .boxup,
+.action .tool.active .boxup{
+    display: block;
+}
+.boxup{
+    position: absolute;
+    left: 0px;
+    top: 24px;
+    background: linear-gradient( #e4effb, #f7fafe);
+    z-index: 3;
+    display: block;
+    box-shadow: 3px 3px 5px 1px rgba(16, 25, 34, 0.26);
+    display: none;
+    outline: 0;
+}

@@ -1,0 +1,58 @@
+@CHARSET "UTF-8";
+#header {
+    position: relative;
+    margin: 0 auto;
+}
+#header{
+    padding: 5px 10px;
+    background-color: #dfecf9;
+    box-shadow: 0.5px 0.5px 0.5px rgba(108, 124, 139, 0.7);
+    margin-bottom: 10px;
+}
+#header .table{
+    white-space: nowrap;
+}
+.table-cell{
+    display: table-cell;
+    vertical-align: middle;
+    box-sizing: border-box;
+}
+#header .table-cell:not(.no-border){
+    border-left: 1px #fff solid; 
+}
+#header .table-cell{
+    padding: 3px 10px;
+}
+#header .table-cell:FIRST-CHILD{
+    border-left: none; 
+}
+#header .table-cell.free-cell{
+    width: 100%;
+}
+#header select{
+    color: #3b5998;
+    background-color: transparent;
+    border: 1px solid #fff;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    padding: 1px 18px 2px 6px;
+    cursor: pointer;
+    background-image: url('../img/select.png');
+    background-repeat: no-repeat;
+    background-position: 95% center;
+    background-position: calc(100% - 6px) center;
+}
+#header select::-ms-expand {
+	display: none;
+}
+#header select option{
+    padding: 3px 5px 2px 6px;
+}
+#header .table-cell.blank-space {
+    width: 100%;
+}
+.wrapper {
+    margin: 0 auto;
+    position: relative;
+    width: 1404px;
+}

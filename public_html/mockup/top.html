@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="vi" lang="vi" dir="ltr">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<meta http-equiv="Content-Style-Type" content="text/css" />
+<meta http-equiv="Content-Script-Type" content="text/javascript" />
+<meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"/>
+
+<link href="/css/font/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+<link href="/css/base.css?01" rel="stylesheet" type="text/css" media="screen,print" />
+<link href="/css/style.css?01" rel="stylesheet" type="text/css" media="screen,print" />
+<link href="/css/end.style.css?01" rel="stylesheet" type="text/css" media="screen,print" />
+<script type="text/javascript" src="/js/jquery.min.js"></script>
+<title>Mục quản lý</title>
+</head>
+<body class="normal">
+    <div id="header">
+        <div class="table">
+            <div class="table-cell">
+                <a href="/"><img src="/img/kanban.png" alt="kanban"></a>
+            </div>
+            <div class="table-cell">
+                <a href="/admin"><i class="fa fa-cogs"></i> admin</a>
+            </div>
+            <div class="table-cell">
+                <select name="project_id" role="location">
+                    <option value="/">list project</option>
+                    <option value="/?pid=1">pro-cy</option>
+                    <option value="/?pid=2">pro-yk</option>
+                </select>
+            </div>
+            <div class="table-cell blank-space no-border"></div>
+            <div class="table-cell">
+                <a href="/logout" ><i class="fa fa-sign-out"></i>&nbsp; logout</a>
+            </div>
+        </div>
+        <div id="butterbar" class="butterbar _clearfix">
+            <div class="wrapper">
+            </div>
+            <a class="close"><i class="fa fa-times-circle"></i></a>
+        </div>
+    </div>
+
+    <div class="wrapper">
+        <div class="leftSide menu">
+        </div>
+        <div class="rightSide">
+		    <div class="kanban">
+			    <h2 class="bar"><i class="fa fa-file-text-o"></i> Danh mục sản phẩm</h2>
+			    <ul class="action clearfix">
+			        <li class="tool"><a href="/task/create/" onclick="javascript:return false;" id="showTaskForm"><i class="fa fa-tasks"></i> thêm mới sản phẩm</a>
+			        <div class="boxup menu-list">
+			            <div class="input-data-form">
+			                <form method="post" action="/task/create" id="addTask" target="$(this).parent()" class="load-ajax">
+		    
+							    <input type="hidden" value="2" name="pid">
+							    <input type="hidden" value="1" name="sid">
+							    <input type="hidden" value="daQgfzl3-9ObVaHr9FSVDQMpqQ7OMz5hJQzs" name="_csrf">
+						        <table>
+						        <tbody>
+							        <tr>
+							            <td colspan="2"></td>
+							        </tr>
+						        <tr>
+						            <th>Id ticket: <span class="req">*</span></th>
+						            <td><input type="text" tabindex="1" maxlength="8" class="ticket_id" value="" name="ticket_id"></td>
+						        </tr>
+						        <tr>
+						            <th>Tên task: <span class="req">*</span></th>
+						            <td><input type="text" tabindex="2" class="task_name" value="" name="task_name"></td>
+						        </tr>
+						        <tr>
+						            <th></th>
+						            <td>
+						            <label tabindex="3" class="green level">
+						                <input type="radio" value="1" name="level" checked="checked">
+						                <i class="fa fa-circle"></i>
+						            </label>
+						            <label tabindex="4" class="orange level">
+						                <input type="radio" value="2" name="level">
+						                <i class="fa fa-circle"></i>
+						            </label>
+						            <label tabindex="5" class="red level">
+						                <input type="radio" value="3" name="level">
+						                <i class="fa fa-circle"></i>
+						            </label>
+						        </td></tr>
+						        <tr>
+						            <th></th>
+						            <td><button tabindex="13" name="add" type="submit">Add</button>&nbsp;&nbsp;&nbsp;
+						            <button tabindex="14" name="cancel" onclick="return false;">Close</button></td>
+						        </tr>
+						        </tbody></table>
+                            </form>
+			            </div>
+			        </div>
+			        </li>
+			        <li class="tool"><a href="#"><i class="fa fa-tasks"></i> Bộ lọc</a>
+			        <div tabindex="1" class="boxup menu-list">
+			            <div class="input-data-form">
+			            </div>
+			        </div>
+			        </li>
+			    </ul>
+			    <div class="data-area">
+			    adb
+			    </div>
+		    </div>
+		</div>
+    </div>
+</body>
+</html>
