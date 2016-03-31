@@ -41,72 +41,232 @@
         </div>
     </div>
 
-    <div class="wrapper">
+    <div class="wrapper _clearfix">
         <div class="leftSide menu">
+            
         </div>
+
         <div class="rightSide">
-		    <div class="kanban">
-			    <h2 class="bar"><i class="fa fa-file-text-o"></i> Danh mục sản phẩm</h2>
-			    <ul class="action clearfix">
-			        <li class="tool"><a href="/task/create/" onclick="javascript:return false;" id="showTaskForm"><i class="fa fa-tasks"></i> thêm mới sản phẩm</a>
-			        <div class="boxup menu-list">
-			            <div class="input-data-form">
-			                <form method="post" action="/task/create" id="addTask" target="$(this).parent()" class="load-ajax">
-		    
-							    <input type="hidden" value="2" name="pid">
-							    <input type="hidden" value="1" name="sid">
-							    <input type="hidden" value="daQgfzl3-9ObVaHr9FSVDQMpqQ7OMz5hJQzs" name="_csrf">
-						        <table>
-						        <tbody>
-							        <tr>
-							            <td colspan="2"></td>
-							        </tr>
-						        <tr>
-						            <th>Id ticket: <span class="req">*</span></th>
-						            <td><input type="text" tabindex="1" maxlength="8" class="ticket_id" value="" name="ticket_id"></td>
-						        </tr>
-						        <tr>
-						            <th>Tên task: <span class="req">*</span></th>
-						            <td><input type="text" tabindex="2" class="task_name" value="" name="task_name"></td>
-						        </tr>
-						        <tr>
-						            <th></th>
-						            <td>
-						            <label tabindex="3" class="green level">
-						                <input type="radio" value="1" name="level" checked="checked">
-						                <i class="fa fa-circle"></i>
-						            </label>
-						            <label tabindex="4" class="orange level">
-						                <input type="radio" value="2" name="level">
-						                <i class="fa fa-circle"></i>
-						            </label>
-						            <label tabindex="5" class="red level">
-						                <input type="radio" value="3" name="level">
-						                <i class="fa fa-circle"></i>
-						            </label>
-						        </td></tr>
-						        <tr>
-						            <th></th>
-						            <td><button tabindex="13" name="add" type="submit">Add</button>&nbsp;&nbsp;&nbsp;
-						            <button tabindex="14" name="cancel" onclick="return false;">Close</button></td>
-						        </tr>
-						        </tbody></table>
+            <div class="kanban">
+                <h2 class="bar"><i class="fa fa-file-text-o"></i> Danh mục của bạn</h2>
+                <ul class="action clearfix">
+                    <li class="tool"><a href="/task/create/" onclick="javascript:return false;" id="showTaskForm"><i class="fa fa-tasks"></i> thêm mới sản phẩm</a>
+                    <div class="boxup menu-list">
+                        <div class="input-data-form">
+                            <form method="post" action="/task/create" id="addTask" target="$(this).parent()" class="load-ajax">
+                                <table>
+                                <tbody>
+                                    <tr>
+                                        <td colspan="2"></td>
+                                    </tr>
+                                <tr>
+                                    <th>Id ticket: <span class="req">*</span></th>
+                                    <td><input type="text" tabindex="1" maxlength="8" class="ticket_id" value="" name="ticket_id"></td>
+                                </tr>
+                                <tr>
+                                    <th>Tên task: <span class="req">*</span></th>
+                                    <td><input type="text" tabindex="2" class="task_name" value="" name="task_name"></td>
+                                </tr>
+                                <tr>
+                                    <th></th>
+                                    <td>
+                                    <label tabindex="3" class="green level">
+                                        <input type="radio" value="1" name="level" checked="checked">
+                                        <i class="fa fa-circle"></i>
+                                    </label>
+                                    <label tabindex="4" class="orange level">
+                                        <input type="radio" value="2" name="level">
+                                        <i class="fa fa-circle"></i>
+                                    </label>
+                                    <label tabindex="5" class="red level">
+                                        <input type="radio" value="3" name="level">
+                                        <i class="fa fa-circle"></i>
+                                    </label>
+                                </td></tr>
+                                <tr>
+                                    <th></th>
+                                    <td><button tabindex="13" name="add" type="submit">Add</button>&nbsp;&nbsp;&nbsp;
+                                    <button tabindex="14" name="cancel" onclick="return false;">Close</button></td>
+                                </tr>
+                                </tbody></table>
                             </form>
-			            </div>
-			        </div>
-			        </li>
-			        <li class="tool"><a href="#"><i class="fa fa-tasks"></i> Bộ lọc</a>
-			        <div tabindex="1" class="boxup menu-list">
-			            <div class="input-data-form">
-			            </div>
-			        </div>
-			        </li>
-			    </ul>
-			    <div class="data-area">
-			    adb
-			    </div>
-		    </div>
-		</div>
+                        </div>
+                    </div>
+                    </li>
+                    <li class="tool"><a href="#"><i class="fa fa-tasks"></i> Bộ lọc</a>
+                    <div tabindex="1" class="boxup menu-list">
+                        <div class="input-data-form">
+                        </div>
+                    </div>
+                    </li>
+                </ul>
+
+                <div class="data-area">
+                    <table class="grid">
+                        <tr>
+                            <td class="images"><img width="60px" height="60px" onerror="javascript:this.src='/img/static/no-image.png';" src="/img/data/rayban-aviator-254x203.jpg"></td>
+                            <td class="title">
+                                <a class="preview" href="#">rayban clubmaster<sup><i class="fa fa-external-link-square"></i></sup></a>
+                                <p class="c-des _elliptext">The colors of an original icon are now shining stronger than ever as Ray Ban releases its new Clubmaster Fleck styles. These iconic models are </p>
+                                <div class="orther">
+                                    <span class="price">560.000VNĐ <sub>công khai</sub></span>
+                                    <span class="entry-date">tạo mới ngày 2016/04/01</span>
+                                </div>
+                            </td>
+                            <td class="tool2">
+                                <a href="#" title="2016/04/01"><i class="fa fa-pencil-square-o"></i>Chỉnh sửa</a>
+                                <a href="#"><i class="fa fa-play-circle-o"></i>Công khai</a>
+                                <a href="#"><i class="fa fa-times-circle"></i>Xóa</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="images"><img width="60px" height="60px" onerror="javascript:this.src='/img/static/no-image.png';" src="/img/data/rayban-aviator-254x203.jpg"></td>
+                            <td class="title">
+                                <a href="#">rayban clubmaster<sup><i class="fa fa-external-link-square"></i></sup></a>
+                                <p class="c-des _elliptext">The colors of an original icon are now shining stronger than ever as Ray Ban releases its new Clubmaster Fleck styles. These iconic models are </p>
+                                <div class="orther">
+                                    <span class="price">560.000VNĐ <sub>không công khai</sub></span>
+                                    <span class="entry-date">tạo mới ngày 2016/04/01</span>
+                                </div>
+                            </td>
+                            <td class="tool2">
+                                <a href="#" title="2016/04/01"><i class="fa fa-pencil-square-o"></i>Chỉnh sửa</a>
+                                <a href="#"><i class="fa fa-play-circle-o"></i>Công khai</a>
+                                <a href="#"><i class="fa fa-times-circle"></i>Xóa</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="images"><img width="60px" height="60px" onerror="javascript:this.src='/img/static/no-image.png';" src="/img/data/rayban-aviator-254x203.jpg"></td>
+                            <td class="title">
+                                <a href="#">rayban clubmaster<sup><i class="fa fa-external-link-square"></i></sup></a>
+                                <p class="c-des _elliptext">The colors of an original icon are now shining stronger than ever as Ray Ban releases its new Clubmaster Fleck styles. These iconic models are </p>
+                                <div class="orther">
+                                    <span class="price">560.000VNĐ <sub>không công khai</sub></span>
+                                    <span class="entry-date">tạo mới ngày 2016/04/01</span>
+                                </div>
+                            </td>
+                            <td class="tool2">
+                                <a href="#" title="2016/04/01"><i class="fa fa-pencil-square-o"></i>Chỉnh sửa</a>
+                                <a href="#"><i class="fa fa-play-circle-o"></i>Công khai</a>
+                                <a href="#"><i class="fa fa-times-circle"></i>Xóa</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="images"><img width="60px" height="60px" onerror="javascript:this.src='/img/static/no-image.png';" src="/img/data/rayban-aviator-254x203.jpg"></td>
+                            <td class="title">
+                                <a href="#">rayban clubmaster<sup><i class="fa fa-external-link-square"></i></sup></a>
+                                <p class="c-des _elliptext">The colors of an original icon are now shining stronger than ever as Ray Ban releases its new Clubmaster Fleck styles. These iconic models are </p>
+                                <div class="orther">
+                                    <span class="price">560.000VNĐ <sub>không công khai</sub></span>
+                                    <span class="entry-date">tạo mới ngày 2016/04/01</span>
+                                </div>
+                            </td>
+                            <td class="tool2">
+                                <a href="#" title="2016/04/01"><i class="fa fa-pencil-square-o"></i>Chỉnh sửa</a>
+                                <a href="#"><i class="fa fa-play-circle-o"></i>Công khai</a>
+                                <a href="#"><i class="fa fa-times-circle"></i>Xóa</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="images"><img width="60px" height="60px" onerror="javascript:this.src='/img/static/no-image.png';" src="/img/data/rayban-aviator-254x203.jpg"></td>
+                            <td class="title">
+                                <a href="#">rayban clubmaster<sup><i class="fa fa-external-link-square"></i></sup></a>
+                                <p class="c-des _elliptext">The colors of an original icon are now shining stronger than ever as Ray Ban releases its new Clubmaster Fleck styles. These iconic models are </p>
+                                <div class="orther">
+                                    <span class="price">560.000VNĐ <sub>không công khai</sub></span>
+                                    <span class="entry-date">tạo mới ngày 2016/04/01</span>
+                                </div>
+                            </td>
+                            <td class="tool2">
+                                <a href="#" title="2016/04/01"><i class="fa fa-pencil-square-o"></i>Chỉnh sửa</a>
+                                <a href="#"><i class="fa fa-play-circle-o"></i>Công khai</a>
+                                <a href="#"><i class="fa fa-times-circle"></i>Xóa</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="images"><img width="60px" height="60px" onerror="javascript:this.src='/img/static/no-image.png';" src="/img/data/rayban-aviator-254x203.jpg"></td>
+                            <td class="title">
+                                <a href="#">rayban clubmaster<sup><i class="fa fa-external-link-square"></i></sup></a>
+                                <p class="c-des _elliptext">The colors of an original icon are now shining stronger than ever as Ray Ban releases its new Clubmaster Fleck styles. These iconic models are </p>
+                                <div class="orther">
+                                    <span class="price">560.000VNĐ <sub>không công khai</sub></span>
+                                    <span class="entry-date">tạo mới ngày 2016/04/01</span>
+                                </div>
+                            </td>
+                            <td class="tool2">
+                                <a href="#" title="2016/04/01"><i class="fa fa-pencil-square-o"></i>Chỉnh sửa</a>
+                                <a href="#"><i class="fa fa-play-circle-o"></i>Công khai</a>
+                                <a href="#"><i class="fa fa-times-circle"></i>Xóa</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="images"><img width="60px" height="60px" onerror="javascript:this.src='/img/static/no-image.png';" src="/img/data/rayban-aviator-254x203.jpg"></td>
+                            <td class="title">
+                                <a href="#">rayban clubmaster<sup><i class="fa fa-external-link-square"></i></sup></a>
+                                <p class="c-des _elliptext">The colors of an original icon are now shining stronger than ever as Ray Ban releases its new Clubmaster Fleck styles. These iconic models are </p>
+                                <div class="orther">
+                                    <span class="price">560.000VNĐ <sub>không công khai</sub></span>
+                                    <span class="entry-date">tạo mới ngày 2016/04/01</span>
+                                </div>
+                            </td>
+                            <td class="tool2">
+                                <a href="#" title="2016/04/01"><i class="fa fa-pencil-square-o"></i>Chỉnh sửa</a>
+                                <a href="#"><i class="fa fa-play-circle-o"></i>Công khai</a>
+                                <a href="#"><i class="fa fa-times-circle"></i>Xóa</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="images"><img width="60px" height="60px" onerror="javascript:this.src='/img/static/no-image.png';" src="/img/data/rayban-aviator-254x203.jpg"></td>
+                            <td class="title">
+                                <a href="#">rayban clubmaster<sup><i class="fa fa-external-link-square"></i></sup></a>
+                                <p class="c-des _elliptext">The colors of an original icon are now shining stronger than ever as Ray Ban releases its new Clubmaster Fleck styles. These iconic models are </p>
+                                <div class="orther">
+                                    <span class="price">560.000VNĐ <sub>không công khai</sub></span>
+                                    <span class="entry-date">tạo mới ngày 2016/04/01</span>
+                                </div>
+                            </td>
+                            <td class="tool2">
+                                <a href="#" title="2016/04/01"><i class="fa fa-pencil-square-o"></i>Chỉnh sửa</a>
+                                <a href="#"><i class="fa fa-play-circle-o"></i>Công khai</a>
+                                <a href="#"><i class="fa fa-times-circle"></i>Xóa</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="images"><img width="60px" height="60px" onerror="javascript:this.src='/img/static/no-image.png';" src="/img/data/rayban-aviator-254x203.jpg"></td>
+                            <td class="title">
+                                <a href="#">rayban clubmaster<sup><i class="fa fa-external-link-square"></i></sup></a>
+                                <p class="c-des _elliptext">The colors of an original icon are now shining stronger than ever as Ray Ban releases its new Clubmaster Fleck styles. These iconic models are </p>
+                                <div class="orther">
+                                    <span class="price">560.000VNĐ <sub>không công khai</sub></span>
+                                    <span class="entry-date">tạo mới ngày 2016/04/01</span>
+                                </div>
+                            </td>
+                            <td class="tool2">
+                                <a href="#" title="2016/04/01"><i class="fa fa-pencil-square-o"></i>Chỉnh sửa</a>
+                                <a href="#"><i class="fa fa-play-circle-o"></i>Công khai</a>
+                                <a href="#"><i class="fa fa-times-circle"></i>Xóa</a>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="images"><img width="60px" height="60px" onerror="javascript:this.src='/img/static/no-image.png';" src="/img/data/rayban-aviator-254x203.jpg"></td>
+                            <td class="title">
+                                <a href="#">rayban clubmaster<sup><i class="fa fa-external-link-square"></i></sup></a>
+                                <p class="c-des _elliptext">The colors of an original icon are now shining stronger than ever as Ray Ban releases its new Clubmaster Fleck styles. These iconic models are </p>
+                                <div class="orther">
+                                    <span class="price">560.000VNĐ <sub>không công khai</sub></span>
+                                    <span class="entry-date">tạo mới ngày 2016/04/01</span>
+                                </div>
+                            </td>
+                            <td class="tool2">
+                                <a href="#" title="2016/04/01"><i class="fa fa-pencil-square-o"></i>Chỉnh sửa</a>
+                                <a href="#"><i class="fa fa-play-circle-o"></i>Công khai</a>
+                                <a href="#"><i class="fa fa-times-circle"></i>Xóa</a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>

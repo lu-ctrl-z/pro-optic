@@ -82,3 +82,57 @@
     display: none;
     outline: 0;
 }
+.data-area {
+	background-color: #fff;
+	padding: 20px;
+}
+.grid {
+	width: 100%;
+	padding: 10px;
+	box-sizing: border-box;
+	border-collapse: collapse;
+}
+.grid td {
+	vertical-align: top;
+	padding: 5px;
+}
+.grid tr {
+	border-top: 1px dotted #aabccf;
+}
+.grid tr:FIRST-CHILD {
+	border-top: none;
+}
+.grid .images{
+	width: 70px;
+}
+.grid .images img{
+	box-sizing: border-box;
+	width: 60px;
+	height: 60px;
+	border: #e4effb solid 1px;
+}
+.tool2 a{
+	margin-left: 10px;
+	display: inline-block;
+	padding: 3px 4px;
+	border-radius: 3px;
+	border: transparent solid 1px;
+	font-size: 12px;
+	font-weight: bold;
+}
+.tool2 a:HOVER{
+	background: linear-gradient( #e4effb, #f7fafe);
+	border: #aabccf solid 1px;
+}
+.tool2 a i{
+	margin-right: 5px;
+}
+.preview {
+	font-size: 15px;
+}
+.orther span{
+	margin-left: 10px;
+}
+.orther span:FIRST-CHILD{
+    margin-left: 0;
+}

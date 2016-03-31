@@ -8,6 +8,7 @@ body{
 	font-family: "helvetica,arial,sans-serif";
 	line-height: 1.34;
 	color: #141823;
+	padding-bottom: 300px;
 }
 ._clearfix:AFTER{
     content: ".";
@@ -26,6 +27,12 @@ ul, li {
 .normal a {
     text-decoration: none;
     color: #3b5998;
+}
+a {
+	color: #3b5998;
+    cursor: pointer;
+    text-decoration: none;
+    font-family:  "helvetica, arial, sans-serif";
 }
 .butterbar.active {
     visibility: visible;
@@ -92,4 +99,12 @@ ul, li {
 @keyframes alert {
     0%   {background-color: #ffffff;}
     100% {background-color: #f9edbe;}
+}
+._elliptext {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.c-des {
+    color: #696969;
 }
