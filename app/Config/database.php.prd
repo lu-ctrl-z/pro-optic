@@ -64,14 +64,14 @@
  */
 class DATABASE_CONFIG {
 
-	public $default = array(
-		'datasource' => 'Database/Mysql',
-		'persistent' => false,
-		'host' => '192.168.4.61',
-		'login' => 'db_hyn_user',
-		'password' => 'rX9Ui6Bq',
-		'database' => 'db_hyn',
-		'prefix' => '',
-		'encoding' => 'utf8',
-	);
+    public $default = array(
+        'datasource'      => 'Database/Mysql',
+        'persistent'      => false,
+        'host'            => '192.168.5.45',
+        'login'           => 'db_hkn_user',
+        'password'        => 'Q3v32aZ9',
+        'database'        => 'db_hkn',
+        'prefix'          => '',
+        'encoding'        => 'utf8',
+    );
 }

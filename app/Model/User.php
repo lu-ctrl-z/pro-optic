@@ -1,17 +1,7 @@
 <?php
+App::import('model', 'Corporation');
 class User extends AppModel {
     public $useTable = 't_user';
-    private $aryColumn = array(
-            'user_mail',
-            'name_sei',
-            'name_mei',
-            'name_kana_sei',
-            'name_kana_mei',
-            'department',
-            'tel',
-            'fax',
-            'password',
-    );
     public $validate = array(
         'user_mail' => array(
             'NotEmpty' => array(
@@ -22,11 +12,15 @@ class User extends AppModel {
                 'rule' => 'email',
                 'message' => 'メールアドレスの書式が正しくありません'
             ),
+            'checkMailaddress' => array(
+                'rule'    => 'checkMailaddress',
+                'message' => 'メールアドレスの書式が正しくありません'
+            ),
         ),
         'name_sei' => array(
             'NotEmpty' => array(
                 'rule' => 'notEmpty',
-                'message' => '正しい姓を入力してください。'
+                'message' => '姓を入力してください。'
             ),
             'CheckLength' => array(
                  'rule' => array('between', 0, 32),
@@ -36,7 +30,7 @@ class User extends AppModel {
         'name_mei' => array(
             'NotEmpty' => array(
                 'rule' => 'notEmpty',
-                'message' => '正しい名を入力してください。'
+                'message' => '名を入力してください。'
             ),
             'CheckLength' => array(
                 'rule' => array('between', 0, 32),
@@ -44,10 +38,6 @@ class User extends AppModel {
             ),
         ),
         'name_kana_sei' => array(
-            'NotEmpty' => array(
-                'rule' => 'notEmpty',
-                'message' => '正しい姓（カナ）を入力してください。'
-            ),
             'CheckLength' => array(
                 'rule' => array('between', 0, 32),
                 'message' => '姓（カナ）は32文字以下で入力してください。'
@@ -58,20 +48,20 @@ class User extends AppModel {
             ),
        ),
        'name_kana_mei' => array(
-            'NotEmpty' => array(
-                'rule' => 'notEmpty',
-                'message' => '正しい名（カナ）を入力してください。'
-            ),
             'CheckLength' => array(
                 'rule' => array('between', 0, 32),
                 'message' => '名（カナ）は32文字以下で入力してください。'
             ),
             'checkKana' => array(
                  'rule' => array('checkKatakana'),
-                 'message' => '名（カナ）にかな以外の文字が入力されています',
+                 'message' => '名（カナ）にカナ以外の文字が入力されています',
             ),
        ),
        'department' => array(
+            'NotEmpty' => array(
+                'rule' => 'notEmpty',
+                'message' => '所属部署を入力してください。'
+            ),
             'CheckLength' => array(
                 'rule' => array('between', 0, 128),
                 'message' => '所属部署は128文字以下で入力してください。'
@@ -80,63 +70,61 @@ class User extends AppModel {
        'tel' => array(
             'NotEmpty' => array(
                 'rule' => 'notEmpty',
-                'message' => '正しい電話番号を入力してください。'
-            ),
-            'CheckLength' => array(
-                'rule' => array('between', 0, 16),
-                'message' => '電話番号は16文字以下で入力してください。'
+                'message' => '電話番号を入力してください。'
             ),
             'pattern'=>array(
-                   'rule'      => '/^0(([5789]0[0-9]{8})|([0-4|6]{1}[0-9]{8})|([7-9|5]{1}[1-9]{1}[0-9]{7}))$/',
-                   'message'   => '電話番号を正しく入力してください',
+                   'rule'      => 'isPhoneNumber',
+                   'message'   => '正しい電話番号を入力してください。',
             ),
        ),
        'fax' => array(
-            'CheckLength' => array(
-                'rule' => array('between', 0, 16),
-                'message' => 'FAX番号は16文字以下で入力してください。'
+            'pattern'=>array(
+                   'rule'      => 'isPhoneNumber',
+                   'message'   => '正しいFAX番号を入力してください。',
             ),
        ),
        'password' => array(
             'NotEmpty' => array(
                 'rule' => 'notEmpty',
-                'message' => '正しいパスワードを入力してください。'
-            ),
-            'CheckLength' => array(
-                'rule' => array('between', 0, 32),
-                'message' => 'パスワード(hash)は32文字以下で入力してください。'
+                'message' => 'パスワードを入力してください。'
             ),
        ),
-       'password_confrim' => array(
+       'password_confirm' => array(
             'NotEmpty' => array(
                 'rule' => 'notEmpty',
-                'message' => '正しいパスワードを入力してください。'
-            ),
-            'CheckLength' => array(
-                'rule' => array('between', 0, 32),
-                'message' => 'パスワード(hash)は32文字以下で入力してください。'
+                'message' => 'パスワード（確認）を入力してください。'
             ),
             'CheckValue' => array(
-                'rule' => array('between', 0, 32),
-                'message' => 'パスワード(hash)は32文字以下で入力してください。'
-            ),
+                'rule'    => 'checkPassword',
+                'message' => 'パスワード（確認）が確認用パスワードと一致しません'
+            )
        ),
     );
-   /**
-     * validate Data
-     * @param array $aryData
-     * @author Luvina
+
+    /**
+     * check Password
+     * @param unknown $data
      * @return boolean
      */
-    public function validateData($aryData){
-        if(is_array($aryData) && (count($aryData) > 0)) {
-            foreach ($this->aryColumn as $key) {
-                $this->set($key, $aryData[$key]);
-            }
-        }
-        $isValid = $this->validates($this->aryColumn);
-        return $isValid;
+    function checkPassword($data){
+        $value = array_values($data);
+        $comparewithvalue = $value[0];
+        return ($this->data[$this->name]['password'] == $comparewithvalue);
     }
+
+    /**
+     * inCorporation
+     * @param unknown $val
+     */
+    function inCorporation($val) {
+        $com_CD = array_values($val);
+        $corporation = new Corporation();
+        $com = $corporation->find('first', array(
+                'conditions' => array('com_CD' => $com_CD, 'delete_date' => null)));
+        if(!$com) return false;
+        return true;
+    }
+
     /**
      * get User by email address
      * @param String $user_mail

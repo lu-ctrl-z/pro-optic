@@ -136,3 +136,36 @@
 .orther span:FIRST-CHILD{
     margin-left: 0;
 }
+#create-product {
+	-webkit-transition: width 1s height 1s; /* For Safari 3.1 to 6.0 */
+    transition: width 1s height 1s;
+    width: 200px;
+    height: 200px;
+}
+.active #create-product{
+	width: 1200px;
+	height: 600px;
+}
+#create-product table{
+	width: 80%;
+	position: relative;
+	margin: 0 auto;
+}
+.attachment .file-image {
+	color: #909090;
+	display: inline-block;
+	font-size: 20px;
+	border: #909090 dotted 2px;
+	padding: 18px;
+}
+.attachment input[type="file"] {
+    bottom: 0;
+    cursor: inherit;
+    font-size: 1000px !important;
+    height: 300px;
+    margin: 0;
+    opacity: 0;
+    padding: 0;
+    position: absolute;
+    right: 0;
+}

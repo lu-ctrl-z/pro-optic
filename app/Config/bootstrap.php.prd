@@ -87,19 +87,13 @@ CakePlugin::load('Taltal');
  *
  * ));
  */
- 
- /**
- * config address ip access to admin
- */
-Configure::write('remote_address', array('202.232.234.149', '127.0.0.1'));
-
 /**
  * config for admin controller not check login
  */
 Configure::write(
     'admin_controller',
         array(
-            'AdminUsers'
+            'AdminUser'
         )
 );
 
@@ -127,38 +121,6 @@ Configure::write(
 );
 
 /**
- * config for list devices
- */
-Configure::write(
-    'Agent', 
-           array(
-               'iPhone',
-               'iPod',
-               'Android',
-               'Windows Phone'
-           )
-);
-
-/*
- * config dir view sp or pc
-*/
-Configure::write(
-    'view_dir', array(
-        'pc' => "Pc",
-        'sp' => "Sp"
-     )
-);
-
-/**
- * config mail receipt when run bat import csv address
- */
-Configure::write('mail_admin', array(
-    'to' => array('info@pharma-navi.net'),
-    'from' => array('info@pharma-navi.net' => ''),
-    'subject' => 'CSV取込の結果',
-));
-
-/**
  * path to run bat file
  */
 Configure::write('batch_file_path', ROOT . '/app/Console/cake');
@@ -166,8 +128,13 @@ Configure::write('batch_file_path', ROOT . '/app/Console/cake');
 /**
  * name of session auth
  */
-Configure::write('ss_auth', 'yk_auth');
-
+Configure::write('ss_auth', 'hk_auth');
+/**
+ * auto_login exprite_day
+ */
+Configure::write('auto_login_expires', 30);
+Configure::write('auto_login_key'    , 'auto_login');
+Configure::write('mailaddress_dns_check'    , true);
 /**
  * environment
  */
@@ -182,38 +149,49 @@ Configure::write('Dispatcher.filters', array(
  * Configures default file logging options
  */
 App::uses('CakeLog', 'Log');
+CakeLog::config('debug', array(
+    'engine' => 'File',
+    'path' => ROOT.'/logs/',
+    'types' => array('notice', 'info', 'debug'),
+    'file' => 'debug',
+));
 CakeLog::config('error', array(
     'engine' => 'File',
     'path' => ROOT.'/logs/',
     'types' => array('error', 'critical', 'alert', 'emergency'),
     'file' => 'error',
 ));
+CakeLog::config('sql', array(
+    'engine' => 'File',
+    'path' => ROOT.'/logs/',
+    'scopes' => array('sql'),
+    'file' => 'sql',
+));
+
 App::uses('Mobile_Util', 'Service');
-/**
- * Configures allowed host
- */
-Configure::write( 'allowed_host', 
-    array( "pharma-navi\.net",
-    )
- );
+App::uses('Util', 'Service');
 /**
  * config mail receipt for admin
  */
 Configure::write('config_mail_admin', array(
-    'to' => array('info@pharma-navi.net'),
-    'from' => array('info@pharma-navi.net'),
+    'to' => array('info@ho-kan.jp'),
+    'from' => array('info@ho-kan.jp' => '訪問看護ステーションナビ'),
 ));
 /**
  * config base url
  */
-Configure::write('base_url',"http://pharma-navi.net");
+Configure::write('base_url', "http://ho-kan.jp");
 /**
- * config mail receipt for admin
+ * config base ssl url
  */
-Configure::write('mail_ratify_drugstore', array(
-    'to' => array('ml.pharma-navi@bm-sms.co.jp'),
-    'from' => array('ml.pharma-navi@bm-sms.co.jp'),
-));
+Configure::write('base_ssl_url', "https://ho-kan.jp");
+Configure::write('mail_envelope_from', 'info@ho-kan.jp');
+// #149 Start Luvina Modify
+// config rss feed news ニュース
+Configure::write('rss_news', "http://api.whkn.idc.bm-sms.co.jp/category/news/feed/");
 
-Configure::write('mail_envelope_from', 'info@pharma-navi.net');
-Configure::write('mail_confirmation_from', 'info@pharma-navi.net');
+// config rss feed info お知らせ
+Configure::write('rss_info', "http://api.whkn.idc.bm-sms.co.jp/category/info/feed/");
+
+Configure::write('number_data_rss', "5");
+// #149 End Luvina Modify

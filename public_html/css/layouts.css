@@ -56,3 +56,21 @@
     position: relative;
     width: 1404px;
 }
+.data-area .pagging {
+	margin-top: 15px;
+}
+.pagging {
+	display: block;
+	text-align: center;
+}
+.pagging li{
+	display: inline-block;
+}
+.pagging li a{
+	display: inline-block;
+	padding: 3px 10px;
+	font-size: 16px;
+	background: linear-gradient( #e4effb, #f7fafe);
+    border: #aabccf solid 1px;
+    border-radius: 3px;
+}

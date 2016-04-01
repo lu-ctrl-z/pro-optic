@@ -45,6 +45,14 @@ class AppController extends Controller {
     public $aryTopicPath = array();
     public $aryError = array();
     public $app_var = array('params' => array());
+
+    public $components = array(
+            'Session',
+            'Cookie',
+            'CsrfSecurity' => array(
+                    'csrfExpires' => '+1 hour'),
+            'Paginator',
+    );
     /**
      * beforeFilter
      * @author Luvina
@@ -52,16 +60,60 @@ class AppController extends Controller {
      * @return
      */
     public function beforeFilter() {
+        if (isset($this->request->query['page'])) {
+            $this->page = $this->request->query['page'];
+        } else if (isset($this->request->params['page'])) {
+            $this->page = $this->request->params['page'];
+        }
+
         if(isset($this->request->params) && is_array($this->request->params)) {
             $this->app_var['params'] = array_merge($this->app_var['params'], $this->request->params);
         }
-        if(isset($this->request->data) && is_array($this->request['data'])) {
+        if(isset($this->request->data) && is_array($this->request->data)) {
             $this->app_var['params'] = array_merge($this->app_var['params'], $this->request->data);
         }
-        if(isset($this->request->query) && is_array($this->request['query'])) {
+        if(isset($this->request->query) && is_array($this->request->query)) {
             $this->app_var['params'] = array_merge($this->app_var['params'], $this->request->query);
         }
         $this->set('app', $this->app_var);
+        $this->set('base_url', Configure::read('base_url'));
+        $this->set('base_ssl_url', Configure::read('base_ssl_url'));
+        $this->loadModel('User');
+        $this->loadConfig('User.ini.php');
+        $user_mode =  Configure::read('user_mode');
+        if($this->isLogin()) {
+            $user = $this->User->find('first', array('conditions' => array('id' => $this->getUserId(), 'delete_date' => null)));
+            if(!empty($user)) {
+               $user['User']['user_mode_text'] =  $user_mode[$user['User']['user_mode']];
+               $this->setApp('user', $user['User']);
+            } else {
+                $this->Session->delete(Configure::read('ss_auth'));
+            }
+        //else auto login logical
+        } else {
+            $auto_login_key = Configure::read('auto_login_key');
+            //$auto_login_expires = Configure::read('auto_login_expires');
+            $auto_login_value = $this->Cookie->read($auto_login_key);
+            if($auto_login_value) {
+                $this->loadModel('AutoLogin');
+                $autoLogin = $this->AutoLogin->find('first', array('conditions' => 
+                        array('auto_login_key' => $auto_login_value, 'expire >=' => Date('Y-m-d H:i:s'))));
+                if(empty($autoLogin)) {
+                    $this->Cookie->delete($auto_login_key);
+                } else {
+                    $user_id = $autoLogin['AutoLogin']['user_id'];
+                    $user = $this->User->find('first', array('conditions' => array('id' => $user_id, 'delete_date' => null)));
+                    if(empty($user)) {
+                        $this->Cookie->delete($auto_login_key);
+                    } else {
+                        $user['User']['user_mode_text'] =  $user_mode[$user['User']['user_mode']];
+                        $this->setApp('user', $user['User']);
+                        $this->Session->write(Configure::read('ss_auth'), $user['User']);
+                    }
+                    $this->AutoLogin->disableAutoLogin($user_id);
+                }
+            }
+        }
         parent::beforeFilter();
     }
 
@@ -225,4 +277,65 @@ class AppController extends Controller {
         }
     }
 
+    
+    public function exportParams($data = array(), $overWrite = false) {
+        $params = &$this->app_var['params'];
+        if(is_array($params)) {
+            if($overWrite == true) {
+                $params = array_merge($params, $data);
+            } else {
+                $params = array_merge($data, $params);
+            }
+        } 
+        return $this->set('app', $this->app_var);
+    }
+    //Start some function check user login
+    /**
+     * getUser
+     * @return array|null
+     */
+    public function getUser() {
+        return $this->Session->read(Configure::read('ss_auth'));
+    }
+    /**
+     * isLogin
+     * @return boolean
+     */
+    public function isLogin() {
+        $user = $this->getUser();
+        return $user && $user['id'];
+    }
+    /**
+     * isSupperAdmin
+     * @return boolean
+     */
+    public function isSupperAdmin() {
+        $user = $this->getUser();
+        return $user && $user['id'] && ($user['user_mode'] == 1);
+    }
+    /**
+     * isAdmin
+     * @return boolean
+     */
+    public function isAdmin() {
+        $user = $this->getUser();
+        return $user && $user['id'] && ($user['user_mode'] == 2);
+    }
+    /**
+     * isMember
+     * @return boolean
+     */
+    public function isMember() {
+        $user = $this->getUser();
+        return $user && $user['id'] && ($user['user_mode'] == 3);
+    }
+    /**
+     * getUserId
+     * @return NULL|user_id
+     */
+    public function getUserId() {
+        $user = $this->Session->read(Configure::read('ss_auth'));
+        if(!$user) return null;
+        return $user['id'];
+    }
 }

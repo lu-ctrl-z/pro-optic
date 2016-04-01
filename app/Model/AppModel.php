@@ -35,7 +35,8 @@ App::uses('Model', 'Model');
  * @package       app.Model
  */
 class AppModel extends Model {
-
+    var $isUploadFile = false;
+    var $uploader = array();
     /**
      * afterFind : write log sql
      * @author luvina
@@ -72,122 +73,6 @@ class AppModel extends Model {
         return parent::afterDelete();
     }
 
-    /**
-     *getLatAndLngByAddress : get geo location
-     * @author luvina
-     * @access public
-     * @param string $address
-     * @return location
-     */
-    function getLatAndLngByAddress($address) {
-        $aryOutput = array();
-        $aryOutput['lat'] = null;
-        $aryOutput['lng'] = null;
-        if(!empty($address)) {
-            $address = urlencode($address);
-            $google_api_key = Configure::read('geocode_key');
-            $google_api_url = Configure::read('geocode_url');
-            $max_rand = count($google_api_key);
-            shuffle($google_api_key);
-            foreach($google_api_key as $key) {
-                $use_google_api_key = $key;
-                $get_google_api_url = $google_api_url . 'key=' . $use_google_api_key . '&sensor=false&region=jp&address=' . $address . '&language=ja';
-                $ch = curl_init();
-                curl_setopt($ch, CURLOPT_URL, $get_google_api_url);
-                curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-                curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-                $geocode = curl_exec($ch);
-                //error_log ("\nIP: ". $_SERVER['REMOTE_ADDR'] . "\t" . date('Y-m-d H:i:s'), 3, "/var/www/hyn/public_html/logAPI.log");
-                $output = json_decode($geocode);
-                curl_close($ch);
-
-                if( $output->status == GEOCODE_OK) {
-                    $result = $output->results[0];
-                    $aryOutput['lat'] = $result->geometry->location->lat;
-                    $aryOutput['lng'] = $result->geometry->location->lng;
-                    return $aryOutput;
-                } elseif($output->status == GEOCODE_ZERO_RESULTS ) {
-                    $this->warning[] = $this->index . '行目 の薬局の住所を確認してください。';
-                    return $aryOutput;
-                } elseif($output->status == GEOCODE_OVER_QUERY_LIMIT) {
-                    sleep(0.2);
-                }
-            }
-        } else {
-            $this->warning[] = $this->index . '行目 の薬局の住所を確認してください。';
-        }
-        return $aryOutput;
-    }
-
-    /**
-     *getFulladdressByLatLng : get address by geocode
-     * @author luvina
-     * @access public
-     * @param float $lat
-     * @param float $lng
-     * @return location
-     */
-    function getFulladdressByLatLng($lat, $lng) {
-        $aryOutput['full_addess'] = null;
-        $aryOutput['administrative_area_level_1'] = null;
-        $aryOutput['sublocality_level_1'] = null;
-        $aryOutput['locality'] = null;
-        $aryOutput['ward'] = null;
-        $aryOutput['colloquial_area'] = null;
-
-        $google_api_key = Configure::read('geocode_key');
-        $google_api_url = Configure::read('geocode_url');
-        $max_rand = count($google_api_key);
-        shuffle($google_api_key);
-        foreach($google_api_key as $key) {
-            $use_google_api_key = $key;
-            $get_google_api_url = $google_api_url . 'key=' . $use_google_api_key . '&sensor=false&latlng=' . $lat . ',' . $lng . '&language=ja';
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, $get_google_api_url);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-            $geocode = curl_exec($ch);
-            //error_log ("\nIP: ". $_SERVER['REMOTE_ADDR'] . "\t" . date('Y-m-d H:i:s'), 3, "/var/www/hyn/public_html/logAPI.log");
-            $output = json_decode($geocode);
-            curl_close($ch);
-
-            if( $output->status == GEOCODE_OK) {
-                $result = $output->results[0];
-                $administrative_area_level_1 = $sublocality_level_1 = $locality = $ward = $colloquial_area = '';
-                foreach ($result->address_components as $type) {
-                    switch ($type->types[0]) {
-                    case "administrative_area_level_1" :
-                        $administrative_area_level_1 = $type->long_name;
-                        break;
-                    case "sublocality_level_1" :
-                        $sublocality_level_1 = $type->long_name;
-                        break;
-                    case "locality" :
-                        $locality = $type->long_name;
-                        break;
-                    case "ward" :
-                        $ward = $type->long_name;
-                        break;
-                    case "colloquial_area" :
-                        $colloquial_area = $type->long_name;
-                        break;
-                    }
-                }
-                $aryOutput['full_addess'] = $administrative_area_level_1 . $colloquial_area . $locality . $ward . $sublocality_level_1;
-                $aryOutput['administrative_area_level_1'] = $administrative_area_level_1;
-                $aryOutput['sublocality_level_1'] = $sublocality_level_1;
-                $aryOutput['locality'] = $locality;
-                $aryOutput['ward'] = $ward;
-                $aryOutput['colloquial_area'] = $colloquial_area;
-                return $aryOutput;
-            } elseif($output->status == GEOCODE_ZERO_RESULTS ) {
-                return $aryOutput;
-            } elseif($output->status == GEOCODE_OVER_QUERY_LIMIT) {
-                usleep(200000);
-            }
-        }
-        return $aryOutput;
-    }
     /**
      * check number and half size
      * @author luvina
@@ -244,7 +129,189 @@ class AppModel extends Model {
         $str = $value[0];
         mb_regex_encoding("UTF-8");
         if (!empty($str)) {
-            if (mb_ereg('^[ぁ-ゞー]+$', $str) !== 1) {
+            if (mb_ereg('^[ァ-ヶーｱ-ﾝﾞﾟ・]+$', $str) !== 1) {
+                return false;
+            }
+        }
+        return true;
+    }
+    //for validate tool
+    /**
+     * get all field validate
+     * @return array:
+     */
+    public function getField() {
+        return array_flip( array_keys($this->validate) );
+    }
+    /**
+     * isValidate Data
+     * @param array $aryData
+     * @author Luvina
+     * @return boolean
+     */
+    public function isValidate($aryData, $aryField = false){
+        if($aryField === false) {
+            $aryField = $this->getField();
+        }
+
+         foreach ($aryField as $key => $val) {
+            if($this->isUploadFile == true) {
+                @$this->setFile($key, $aryData);
+            } else {
+                @$this->set($key, $aryData[$key]);
+            }
+        }
+
+        return $this->validates($aryField);
+    }
+    /**
+     * setFile
+     * @param String $name
+     * @param Data $data
+     */
+    public function setFile($name, $data) {
+        if(isset($data[$name])) {
+            if(!is_array($data[$name])) {
+                return $this->set($name, $data[$name]);
+            } else {
+                $value = $data[$name];
+                if($value['size'] == 0 || $value['error'] !== 0) {
+                    if(isset($data['tmpUploader']) && isset($data['tmpUploader'][$name])){
+                        $uploaded = unserialize($data['tmpUploader'][$name]);
+                        if(!file_exists($uploaded['tmp_name'])) {
+                            return $this->set($name, $data[$name]);
+                        }
+                        return $this->set($name, $uploaded);
+                    } else {
+                        return $this->set($name, $data[$name]);
+                    }
+                }
+           }
+        } elseif(isset($data['tmpUploader']) && isset($data['tmpUploader'][$name])) {
+            $uploaded = unserialize($data['tmpUploader'][$name]);
+            if(!file_exists($uploaded['tmp_name'])) {
+                return $this->set($name, null);
+            }
+            return $this->set($name, $uploaded);
+        }
+        return $this->set($name, $data[$name]);
+    }
+    /**
+     * requiredUpload
+     * @param array $file
+     */
+    public function requiredUpload($file) {
+        $myName = array_keys($file);
+        $myName = $myName[0];
+        $uploadData = array_shift($file);
+        if ($uploadData['size'] == 0 || $uploadData['error'] !== 0) {
+            return false;
+        }
+        if(!file_exists($uploadData['tmp_name'])) {
+            return false;
+        }
+        return true;
+    }
+    /**
+     * uploaderImage
+     * @param array $file
+     * @param string $key
+     */
+    public function uploaderImage($file, $key) {
+        if($this->requiredUpload($file) == false) return true;
+        $myName = array_keys($file);
+        $myName = $myName[0];
+        $uploadData = $file[$myName];
+        $parh = '/tmp/uploaded/img/';
+        $named = md5(microtime(true)) . $key;
+        $filename = ROOT.$parh.$named.'.png';
+        if (copy($uploadData['tmp_name'], $filename)) {
+            $file[$myName]['tmp_name'] = $filename;
+            $this->setUploaderData($myName, $file[$myName]);
+            @unlink($uploadData['tmp_name']);
+            return true;
+        }
+        return false;
+    }
+    /**
+     * setUploaderData
+     * @param unknown $name
+     * @param unknown $value
+     */
+    public function setUploaderData($name, $value) {
+        $this->uploader[$name] = array('file' => serialize($value));
+        if(file_exists($value['tmp_name'])) {
+            $this->uploader[$name]['base64'] = base64_encode(file_get_contents($value['tmp_name']));
+        }
+    }
+    /**
+     * getUploaderData
+     * @param unknown $name
+     * @return string
+     */
+    public function getUploaderData($name) {
+        if(isset($this->uploader[$name])) {
+            return $this->uploader[$name];
+        }
+        return null;
+    }
+    /*
+     * check phone number
+     */
+    /**
+     * check Password
+     * @param unknown $data
+     * @param unknown $compareField
+     * @return boolean
+     */
+    public function inConfig($data, $configName){
+        $value = array_values($data);
+        $value = $value[0];
+        if(empty($value)) return true;
+        $configValue = Configure::read($configName);
+        return isset($configValue[$value]);
+    }
+    /**
+     * 
+     * @param array $val
+     */
+    public function isPhoneNumber($val) {
+        $value = array_values($val);
+        $value = $value[0];
+        $value = str_replace('-', '', $value);
+        if(empty($value)) return true;
+        return preg_match('/^0(([5789]0[0-9]{4}[0-9]{4})|([5789]0[0-9]{8})|([0-4|6]{1}[0-9]{4}[0-9]{4})|([0-4|6]{1}[0-9]{8})|([7-9|5]{1}[1-9]{1}[0-9]{3}[0-9]{4})|([7-9|5]{1}[1-9]{1}[0-9]{7}))$/', "" . $value);
+    }
+
+    /**
+     * extension2 not required upload
+     * @param unknown $check
+     * @param unknown $extensions
+     * @return boolean
+     */
+    public function extension2($check, $extensions) {
+        if($this->requiredUpload($check) == false) return true;
+        $check = array_shift($check);
+        $extension = strtolower(pathinfo($check['name'], PATHINFO_EXTENSION));
+        foreach ($extensions as $value) {
+            if ($extension === strtolower($value)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    /**
+     * check mail address
+     * @param unknown $check
+     * @return boolean
+     */
+    public function checkMailaddress($check) {
+        $v = array_values($check);
+        $v = $v[0];
+        if (!empty($v) && Configure::read('mailaddress_dns_check') && (strtoupper(substr(PHP_OS, 0, 3)) !== 'WIN')) {
+            $check_mailaddress = substr(strstr(trim(chop($v)), "@"), 1, strlen(strstr(trim(chop($v)), "@")));
+            // MXレコード、Aレコード検索
+            if (!(checkdnsrr($check_mailaddress) || checkdnsrr($check_mailaddress, 'A'))) {
                 return false;
             }
         }

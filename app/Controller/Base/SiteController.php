@@ -1,5 +1,6 @@
 <?php
 App::uses('AppController', 'Controller');
+
 /**
  * SiteController: check smartphone and select view
  * @author Luvina
@@ -10,19 +11,11 @@ App::uses('AppController', 'Controller');
  */
 
 class SiteController extends AppController{
-
     public $CsrfSecurity = null;
     public $device = 'pc';
     public $page = 1;
     public $Paginator;
 
-    public $components = array(
-            'Session',
-            'Cookie',
-            'CsrfSecurity' => array(
-                    'csrfExpires' => '+1 hour'),
-            'Paginator',
-    );
     /**
      * beforeFilter
      * @author Luvina
@@ -85,45 +78,23 @@ class SiteController extends AppController{
         }
     }
     /**
-     *
-     * @return boolean
-     */
-    public function isLogined() {
-        $this->userInfo = $this->Session->read(Configure::read('ss_auth'));
-        if (!empty($this->userInfo)) {
-            $this->set('isLogin', true);
-            $this->set('userInfo', $this->userInfo);
-            return true;
-        }
-        return false;
-    }
-    
-    /**
-     * set data còig
+     * configMap
      * @author Luvina
      * @access public
+     * @param int $latitude
+     * @param int $longitude
+     * @param string $address
+     * @param boolean $zoomJapan
+     * @param boolean $isDetail
+     * @return
      */
-    public function setDataColumnInt() {
-        $this->loadConfig('Station.ini.php');
-
-        $aryVisitGuidance = Configure::read('visit_guidance');
-        $aryStationFunction = Configure::read('station_function');
-        $aryHospitalLink = Configure::read('hospital_link');
-        $aryHourAday = Configure::read('24_hour_aday');
-        $aryPalCare = Configure::read('pal_care');
-        $aryMentalCare = Configure::read('mental_care');
-        $aryKidsCare = Configure::read('kids_care');
-        $aryDementiaCare = Configure::read('dementia_care');
-        $aryHandicappedCare = Configure::read('handicapped_care');
-
-        $this->set('aryVisitGuidance', $aryVisitGuidance);
-        $this->set('aryStationFunction', $aryStationFunction);
-        $this->set('aryHospitalLink', $aryHospitalLink);
-        $this->set('aryHourAday', $aryHourAday);
-        $this->set('aryPalCare', $aryPalCare);
-        $this->set('aryMentalCare', $aryMentalCare);
-        $this->set('aryKidsCare', $aryKidsCare);
-        $this->set('aryDementiaCare', $aryDementiaCare);
-        $this->set('aryHandicappedCare', $aryHandicappedCare);
+    public function configMap($latitude, $longitude, $address, $zoom) {
+        $mapConfig = array();
+        $address = str_replace(array("\r\n", "\n"), '\\n', $address);
+        $mapConfig['address'] = $address;
+        $mapConfig['latitude'] = $latitude;
+        $mapConfig['longitude'] = $longitude;
+        $mapConfig['zoom'] = $zoom;
+        $this->set('map', $mapConfig);
     }
 }

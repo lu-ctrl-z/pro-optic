@@ -15,12 +15,12 @@ class Geocoding extends AppModel{
      * @param string $address
      */
     public function getAdderess ($addressMd5) {
-        $aryFiles = array('address_md5',
+        $aryFields = array('address_md5',
                           'X(latlng) as lat',
                           'Y(latlng) as lng',
                           'address_api');
         $conditions = array('address_md5' => $addressMd5);
-        $list = $this->find('first',array("fields" => $aryFiles, "conditions" => $conditions));
+        $list = $this->find('first', array("fields" => $aryFields, "conditions" => $conditions));
         $aryData = array();
         if (count($list) > 0) {
             $aryData = array_merge($list['Geocoding'],$list[0]);
@@ -38,7 +38,7 @@ class Geocoding extends AppModel{
      * @param string $longitude
      * @param array $aryAddressServer
      */
-    public function addGeocoding ($address, $aryDataGeocode) {
+    public function addGeocoding ($address_md5, $aryDataGeocode) {
 
         $this->create();
         $db = ConnectionManager::getDataSource('default');
@@ -48,9 +48,9 @@ class Geocoding extends AppModel{
         unset($aryDataGeocode['geometry_location_lng']);
         $addressApi = serialize($aryDataGeocode);
 
-        $this->set('address_md5', $address);
+        $this->set('address_md5', $address_md5);
         $this->set('latlng', $latlng);
         $this->set('address_api', $addressApi);
-        $this->save();
+        return $this->save();
     }
 }

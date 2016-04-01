@@ -9,18 +9,6 @@
  * @see configPaginate()
  */
 class Util {
-
-    public function isAllowedHost($url) {
-        $isAllowed = false;
-        $aryAllowHost = Configure::read('allowed_host');
-        foreach ($aryAllowHost as $host) {
-            if( preg_match('/^(https?:)\/\/(www\.)?(' . $host . ')([\/\?&#]{1}|$)/i', $url) ) {
-                $isAllowed = true;
-            }
-        }
-
-        return $isAllowed;
-    }
     /**
      * Trim column
      * @author Luvina
@@ -96,18 +84,32 @@ class Util {
      * @param int $count
      * @return
      */
-    public function configPaginate($table, $count, $curPage, $limitPerPage = 10, $modulus) {
+    public function setPager($table, $total, $url_params = array(), $limit = 10, $modulus = 9,
+        $textPaginate = '%s～%s件を表示 / 全%s件') {
+
+        $pageCount = (int)ceil($total / $limit);
+        self::getCurrentPage($pageCount);
+
+        $this->set('url_params', $url_params);
+        $this->set('modulus', $modulus);
+        $offset = ($this->page - 1) * $limit;
+        $this->set('indexFrom', $offset);
+        $indexTo = $offset + $limit;
+        $indexTo = ($indexTo > $total) ? $total : $indexTo;
+        $this->set('indexTo', $indexTo);
+        $textPaginate = sprintf($textPaginate, $offset + 1, $indexTo, $total);
+        $this->set('textPaginate', $textPaginate);
 
         $this->paginate = array(
                 "$table" => array(
-                        'limit' => $limitPerPage,
-                        'page' => $curPage,
+                        'limit' => $limit,
+                        'page' => $this->page,
                         'modulus' => $modulus
                 )
         );
 
         $this->$table->recursive = 0;
-        $this->Paginator->count = $count;
+        $this->Paginator->count = $total;
         $this->paginate($table);
     }
     /**
@@ -123,5 +125,6 @@ class Util {
         } else if ($this->page > $pageCount) {
             $this->page = $pageCount;
         }
+        return $this->page;
     }
 }

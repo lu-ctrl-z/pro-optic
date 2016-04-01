@@ -10,6 +10,7 @@ body{
 	color: #141823;
 	padding-bottom: 300px;
 }
+.pagging:AFTER,
 ._clearfix:AFTER{
     content: ".";
     display: block;
@@ -107,4 +108,7 @@ a {
 }
 .c-des {
     color: #696969;
+}
+._overflow_hidden{
+	overflow: hidden;
 }

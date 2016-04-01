@@ -120,25 +120,6 @@ Configure::write(
            )
 );
 
-/*
- * config dir view sp or pc
-*/
-Configure::write(
-    'view_dir', array(
-        'pc' => "Pc",
-        'sp' => "Sp"
-     )
-);
-
-/**
- * config mail receipt when run bat import csv address
- */
-Configure::write('mail_admin', array(
-    'to' => array('dothihong@luvina.net'),
-    'from' => array('dothihong@luvina.net' => ''),
-    'subject' => 'CSV取込の結果',
-));
-
 /**
  * path to run bat file
  */
@@ -148,7 +129,12 @@ Configure::write('batch_file_path', ROOT . '/app/Console/cake');
  * name of session auth
  */
 Configure::write('ss_auth', 'hk_auth');
-
+/**
+ * auto_login exprite_day
+ */
+Configure::write('auto_login_expires', 30);
+Configure::write('auto_login_key'    , 'auto_login');
+Configure::write('mailaddress_dns_check'    , true);
 /**
  * environment
  */
@@ -185,29 +171,18 @@ CakeLog::config('sql', array(
 App::uses('Mobile_Util', 'Service');
 App::uses('Util', 'Service');
 /**
- * Configures allowed host
- */
-Configure::write( 'allowed_host', 
-    array( "10.0.0.134:250")
- );
-/**
  * config mail receipt for admin
  */
 Configure::write('config_mail_admin', array(
     'to' => array('buivantinh@luvina.net'),
-    'from' => array('buivantinh@luvina.net'),
+    'from' => array('buivantinh@luvina.net' => 'Ban quản lý ABC'),
 ));
 /**
  * config base url
  */
-Configure::write('base_url',"http://10.0.1.104:218");
-Configure::write('base_ssl_url',"http://10.0.1.104:218");
+Configure::write('base_url', "http://10.0.1.104:212");
 /**
- * config mail receipt for admin
-*/
-Configure::write('mail_ratify_drugstore', array(
-'to' => array('dothihong@luvina.net'),
-'from' => array('dothihong@luvina.net'),
-));
-Configure::write('mail_envelope_from', 'dothihong@luvina.net');
-Configure::write('mail_confirmation_from', 'dothihong@luvina.net');
+ * config base ssl url
+ */
+Configure::write('base_ssl_url', "http://10.0.1.104:218");
+Configure::write('mail_envelope_from', 'buivantinh@luvina.net');

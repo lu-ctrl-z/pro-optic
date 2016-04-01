@@ -11,6 +11,7 @@
 <link href="/css/style.css?01" rel="stylesheet" type="text/css" media="screen,print" />
 <link href="/css/end.style.css?01" rel="stylesheet" type="text/css" media="screen,print" />
 <script type="text/javascript" src="/js/jquery.min.js"></script>
+<script type="text/javascript" src="/js/document.ready.js"></script>
 <title>Mục quản lý</title>
 </head>
 <body class="normal">
@@ -47,51 +48,32 @@
         </div>
 
         <div class="rightSide">
-            <div class="kanban">
+            <div class="kanban _overflow_hidden">
                 <h2 class="bar"><i class="fa fa-file-text-o"></i> Danh mục của bạn</h2>
                 <ul class="action clearfix">
-                    <li class="tool"><a href="/task/create/" onclick="javascript:return false;" id="showTaskForm"><i class="fa fa-tasks"></i> thêm mới sản phẩm</a>
-                    <div class="boxup menu-list">
-                        <div class="input-data-form">
-                            <form method="post" action="/task/create" id="addTask" target="$(this).parent()" class="load-ajax">
-                                <table>
-                                <tbody>
-                                    <tr>
-                                        <td colspan="2"></td>
-                                    </tr>
-                                <tr>
-                                    <th>Id ticket: <span class="req">*</span></th>
-                                    <td><input type="text" tabindex="1" maxlength="8" class="ticket_id" value="" name="ticket_id"></td>
-                                </tr>
-                                <tr>
-                                    <th>Tên task: <span class="req">*</span></th>
-                                    <td><input type="text" tabindex="2" class="task_name" value="" name="task_name"></td>
-                                </tr>
-                                <tr>
-                                    <th></th>
-                                    <td>
-                                    <label tabindex="3" class="green level">
-                                        <input type="radio" value="1" name="level" checked="checked">
-                                        <i class="fa fa-circle"></i>
-                                    </label>
-                                    <label tabindex="4" class="orange level">
-                                        <input type="radio" value="2" name="level">
-                                        <i class="fa fa-circle"></i>
-                                    </label>
-                                    <label tabindex="5" class="red level">
-                                        <input type="radio" value="3" name="level">
-                                        <i class="fa fa-circle"></i>
-                                    </label>
-                                </td></tr>
-                                <tr>
-                                    <th></th>
-                                    <td><button tabindex="13" name="add" type="submit">Add</button>&nbsp;&nbsp;&nbsp;
-                                    <button tabindex="14" name="cancel" onclick="return false;">Close</button></td>
-                                </tr>
-                                </tbody></table>
-                            </form>
-                        </div>
-                    </div>
+                    <li class="tool"><a cmd-role="grid-goto" id="showTaskForm"><i class="fa fa-tasks"></i> thêm mới sản phẩm</a>
+	                    <div class="boxup menu-list">
+	                        <div id="create-product" class="input-data-form _t">
+	                            <form method="post" enctype="multipart/form-data" action="/product/create" target="$(this).parent()" class="load-ajax">
+	                                <table>
+		                                <tbody>
+		                                    <tr>
+		                                        <td colspan="3" align="center"><font style="margin: 10px 0px; display: inline-block;" size="5px">Đăng sản phẩm</font></td>
+		                                    </tr>
+		                                    <tr>
+		                                        <td class="imageuploader">
+		                                            <div class="attachment">
+		                                              <font class="file-image"><i class="fa fa-file-image-o"></i></font>
+		                                              <input type="file" multiple="multiple" title="đăng ảnh...">
+		                                            </div>
+		                                            <div class="preview"></div>
+	                                            </td>
+		                                    </tr>
+		                                </tbody>
+	                                </table>
+	                            </form>
+	                        </div>
+	                    </div>
                     </li>
                     <li class="tool"><a href="#"><i class="fa fa-tasks"></i> Bộ lọc</a>
                     <div tabindex="1" class="boxup menu-list">
@@ -264,6 +246,14 @@
                             </td>
                         </tr>
                     </table>
+                    <ul class="pagging">
+                        <li><a href="#">Trước</a></li>
+                        <li><a href="#">1</a></li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                        <li><a href="#">4</a></li>
+                        <li><a href="#">Tiếp</a></li>
+                    </ul>
                 </div>
             </div>
         </div>

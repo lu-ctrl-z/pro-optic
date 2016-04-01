@@ -1,5 +1,5 @@
 <?php
-App::uses('SiteController', 'Controller\Base');
+App::uses('SiteController', 'Controller/Base');
 /**
  * AdminController
  * @author Luvina
@@ -26,7 +26,7 @@ class AdminController extends SiteController {
      * @return
      */
     public function beforeRender() {
-        $this->layout = 'admin_default';
+        $this->layout = 'portal';
         $this->set('request', $this->request);
     }
 
@@ -45,13 +45,40 @@ class AdminController extends SiteController {
         $actionNotCheck = Configure::read('action_admin_login_not_check');
         $actionNotRedirect = Configure::read('action_admin_login_not_redirect');
         if (!in_array($this->name, $controllerAdmin) || (in_array($this->name, $controllerAdmin) && !in_array($this->action, $actionNotCheck))) {
-            if (!$this->isLogined()) {
+            if (!$this->isLogin()) {
                 $this->redirect('/login');
             }
         }
 
-        if ($this->isLogined() && in_array($this->action, $actionNotRedirect)) {
+        if ($this->isLogin() && in_array($this->action, $actionNotRedirect)) {
             $this->redirect('/portal');
         }
     }
+    // #144 Start Luvina Modify
+    /**
+     * setArrayMailConfig set data for mail config  when sendmail
+     * @author Luvina
+     * @access public
+     * @return
+     */
+    public function setArrayMailConfig ($mail_to) {
+        $mailAdmin = Configure::read('config_mail_admin');
+        $aryTmpConfigMail = array('user_mail' => $mailAdmin['to'],
+                                  'name_sei' => '',
+                                  'name_mei' => '');
+        foreach ($mail_to as $userInfo) {
+            if($userInfo["user_mode"] == 2) {
+                $aryTmpConfigMail['name_sei'] = $userInfo['name_sei'];
+                $aryTmpConfigMail['name_mei'] = $userInfo['name_mei'];
+            }
+            if($userInfo["user_mode"] == 3) {
+                $aryTmpConfigMail['name_sei'] = $userInfo['name_sei'];
+                $aryTmpConfigMail['name_mei'] = $userInfo['name_mei'];
+                break;
+            }
+        }
+        $mail_to['mail_config'] = $aryTmpConfigMail;
+        return $mail_to;
+    }
+    // #144 End Luvina Modify
 }

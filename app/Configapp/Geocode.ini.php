@@ -20,11 +20,3 @@ Configure::write(
 Configure::write(
     'geocode_url' , 'https://maps.googleapis.com/maps/api/geocode/json?'
 );
-/**
- * config key of staticmap
- */
-Configure::write(
-    'staticmap_key', array(
-        'AIzaSyBfAdrcfVb7jybeJikCAMeUUCh1VFUyMu4',
-    )
-);
