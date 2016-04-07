@@ -12,6 +12,8 @@
 <link href="/css/end.style.css?01" rel="stylesheet" type="text/css" media="screen,print" />
 <script type="text/javascript" src="/js/jquery.min.js"></script>
 <script type="text/javascript" src="/js/document.ready.js"></script>
+<script type="text/javascript" src="/plug/plupload/js/plupload.full.min.js"></script>
+<script type="text/javascript" src="/plug/plupload/js/custom-plupload.js"></script>
 <title>Mục quản lý</title>
 </head>
 <body class="normal">
@@ -51,7 +53,7 @@
             <div class="kanban _overflow_hidden">
                 <h2 class="bar"><i class="fa fa-file-text-o"></i> Danh mục của bạn</h2>
                 <ul class="action clearfix">
-                    <li class="tool"><a cmd-role="grid-goto" id="showTaskForm"><i class="fa fa-tasks"></i> thêm mới sản phẩm</a>
+                    <li class="tool"><a cmd-role="grid-goto" id="showTaskForm" href="#!create-product"><i class="fa fa-tasks"></i> thêm mới sản phẩm</a>
 	                    <div class="boxup menu-list">
 	                        <div id="create-product" class="input-data-form _t">
 	                            <form method="post" enctype="multipart/form-data" action="/product/create" target="$(this).parent()" class="load-ajax">
@@ -61,12 +63,31 @@
 		                                        <td colspan="3" align="center"><font style="margin: 10px 0px; display: inline-block;" size="5px">Đăng sản phẩm</font></td>
 		                                    </tr>
 		                                    <tr>
-		                                        <td class="imageuploader">
-		                                            <div class="attachment">
-		                                              <font class="file-image"><i class="fa fa-file-image-o"></i></font>
-		                                              <input type="file" multiple="multiple" title="đăng ảnh...">
+		                                        <td class="imageuploader _clearfix">
+		                                            <div class="attachment _t">
+	                                                    <font class="file-image"><i class="fa fa-file-image-o"></i></font>
+		                                                <input type="file" multiple="multiple" title="đăng ảnh...">
 		                                            </div>
-		                                            <div class="preview"></div>
+		                                            <div class="preview-div">
+		                                                <span class="pre-image" style="background-image: url('http://hokan.jp/images/station/ccb9139e02f361af18bb6cfc7e8954cb_1.png');">
+		                                                    <i class="rm-image"></i>
+		                                                </span>
+		                                                <span class="pre-image" style="background-image: url('http://hokan.jp/images/station/ccb9139e02f361af18bb6cfc7e8954cb_1.png');">
+		                                                    <i class="rm-image"></i>
+		                                                </span>
+		                                                <span class="pre-image" style="background-image: url('http://hokan.jp/images/station/ccb9139e02f361af18bb6cfc7e8954cb_1.png');">
+		                                                    <i class="rm-image"></i>
+		                                                </span>
+		                                                <span class="pre-image" style="background-image: url('http://hokan.jp/images/station/ccb9139e02f361af18bb6cfc7e8954cb_1.png');">
+		                                                    <i class="rm-image"></i>
+		                                                </span>
+		                                                <span class="pre-image" style="background-image: url('http://hokan.jp/images/station/ccb9139e02f361af18bb6cfc7e8954cb_1.png');">
+		                                                    <i class="rm-image"></i>
+		                                                </span>
+		                                                <span class="pre-image" style="background-image: url('http://hokan.jp/images/station/ccb9139e02f361af18bb6cfc7e8954cb_1.png');">
+		                                                    <i class="rm-image"></i>
+		                                                </span>
+		                                            </div>
 	                                            </td>
 		                                    </tr>
 		                                </tbody>

@@ -13,9 +13,9 @@ $(function() {
             if(isLoaded.length > 0) {
                 isLoaded.focus();
             } else {
-                $.get($(this).attr('href'), function(res) {
+                /*$.get($(this).attr('href'), function(res) {
                     $tool.find('.input-data-form').append(res.content);
-                });
+                });*/
             }
         }
     };

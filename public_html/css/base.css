@@ -112,3 +112,11 @@ a {
 ._overflow_hidden{
 	overflow: hidden;
 }
+.pre-image {
+	display: inline-block;
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-size: cover;
+	height: 70px;
+	width: 60px;
+}
